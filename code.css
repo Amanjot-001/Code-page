@@ -7,7 +7,7 @@
 body {
     background-color: rgb(26, 26, 26);
     height: 100vh;
-    /* overflow: hidden; */
+    overflow: hidden;
 }
 
 .container {
@@ -74,7 +74,7 @@ nav {
     background-color: green;
     color: white;
     padding: 5px;
-    border-radius: 10px;
+    border-radius: 5px;
 }
 
 .question {
@@ -142,13 +142,17 @@ iframe {
 
 .section-2 .lower {
     display: flex;
-    justify-content: end;
-    gap: 1rem;
+    justify-content: space-between;
     padding: 15px 20px;
 }
 
 .section-2 .lower div {
     color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    gap: 1rem;
 }
 
 .run-btn {
@@ -163,4 +167,8 @@ iframe {
     padding: 5px;
     border-radius: 5px;
     cursor: pointer;
+}
+
+.console {
+    clear: left;
 }
