@@ -18,10 +18,11 @@ app.set('view engine', 'ejs');
 app.use("/styles", express.static(__dirname + "/styles"));
 app.use("/scripts", express.static(__dirname + "/scripts"));
 app.use("/images", express.static(__dirname + "/images"));
+app.use(express.static('Code-page'));
 
 const openai = new OpenAIApi(configuration);
 mongoose.connect(process.env.MONGO_PROD_URL)
-.then(() => console.log('connected db'));
+    .then(() => console.log('connected db'));
 
 
 
@@ -222,10 +223,14 @@ async function check() {
     console.log(checkedCode);
 }
 
-app.get('/path', (req,res) => {
-    res.render('code', {data});
+app.get('/path', (req, res) => {
+    res.render('code', { data });
 })
 
+app.get('/ex', (req, res) => {
+    const filePath = path.join(__dirname, 'ex.html');
+    res.sendFile(filePath);
+});
 
 
 app.get('/code', (req, res) => {
