@@ -169,3 +169,5 @@ const data = new project({
         }
     ]
 })
+
+module.exports = {data};
