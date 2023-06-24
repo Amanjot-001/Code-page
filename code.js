@@ -1,7 +1,7 @@
 var editor = ace.edit("editor");
 var exEditor = ace.edit("ex-editor");
 exEditor.setTheme("ace/theme/twilight");
-exEditor.session.setMode("ace/mode/html");
+exEditor.session.setMode("ace/mode/css");
 editor.setTheme("ace/theme/twilight");
 editor.session.setMode("ace/mode/html");
 
@@ -10,12 +10,13 @@ editor.setOption('enableLiveAutocompletion', true);
 
 const run = document.querySelector('.run-btn');
 
-var initialHTML = `<div class="calculator-card">
-  <div class="input-div">
-  </div>
-  <div class="buttons">
-  </div>
-</div>`;
+var initialHTML = 'body {\n' +
+'\tbackground-color: #000;\n' +
+'\tdisplay: flex;\n' +
+'\tjustify-content: center;\n' +
+'\talign-items: center;\n' +
+'\tmin-height: 100vh;\n' +
+'}';
 exEditor.setValue(initialHTML);
 exEditor.setReadOnly(true);
 

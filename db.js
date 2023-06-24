@@ -92,7 +92,78 @@ const data = new project({
                     preview: true
                 },
                 {
-                    heading: ''
+                    heading: 'Styling the buttons container',
+                    info: 'Apply the following styles to the <div> element with the class name "buttons" to achieve a visually pleasing layout:' + '/n' +
+                        'Arrange the button elements in a grid with 5 rows and 4 columns.' + '/n' +
+                        'Add appropriate spacing between each button to create gaps.' + '/n' +
+                        'Apply additional styling to enhance the overall appearance and make it visually appealing.',
+                    hint: 'Use grid',
+                    example: '.buttons {\n' +
+                        '\tmargin-top: 20px;\n' +
+                        '\tcolor: white;\n' +
+                        '\tbackground-color: #333;\n' +
+                        '\tpadding: 10px;\n' +
+                        '\tborder-radius: 5px;\n' +
+                        '}',
+                    solution: '.buttons {\n' +
+                        '\tdisplay: grid;\n' +
+                        '\tgrid-template-columns: repeat(4, 1fr);\n' +
+                        '\tgap: 15px;\n' +
+                        '\tmargin-top: 20px;\n' +
+                        '\tcolor: white;\n' +
+                        '\tbackground-color: #333;\n' +
+                        '\tpadding: 10px;\n' +
+                        '\tborder-radius: 5px;\n' +
+                        '}',
+                    difficulty: 'Medium',
+                    html: '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Calculator</title><link rel="stylesheet" href="ex.css"></head><body><div class="calculator-card"><div class="input-div">0</div><div class="buttons"><button>AC</button><button>DEL</button><button>%</button><button>/</button><button>7</button><button>8</button><button>9</button><button>*</button><button>4</button><button>5</button><button>6</button><button>-</button><button>1</button><button>2</button><button>3</button><button>+</button><button>^</button><button>0</button><button>.</button><button>=</button></div></div><script src="ex.js"></script></body></html>',
+                    css: '* { margin: 0; padding: 0; box-sizing: border-box; } body { background-color: #000; display: flex; justify-content: center; align-items: center; min-height: 100vh; } .buttons { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-top: 20px; color: white; background-color: #333; padding: 10px; border-radius: 5px; }',
+                    preview: true
+                },
+                {
+                    heading: 'Styling the input-div and buttons.',
+                    info: 'To style the <div> element with the class name "input-div":' + '/n' +
+
+                        'Font Size: Change the text size using font-size.' + '/n' +
+                        'Padding: Add space around the content using padding.' + '/n' +
+                        'Text Alignment: Align the text using text-align.' + '/n' +
+                        'Color: Change the text color using color.' + '/n' +
+                        'To style the <button> elements inside the <div> with the class name "buttons":' + '/n' +
+
+                        'Font Size: Change the text size using font-size.' + '/n' +
+                        'Padding: Add space around the content using padding.' + '/n' +
+                        'Background Color: Change the background color using background-color.' + '/n' +
+                        'Cursor Style: Change the cursor appearance using cursor.',
+                    solution: '.input-div {\n' +
+                        '\tfont-size: 1.2rem;\n' +
+                        '\tpadding: 5px 15px;\n' +
+                        '\ttext-align: end;\n' +
+                        '\tcolor: white;\n' +
+                        '}\n\n' +
+                        '.buttons button {\n' +
+                        '\tfont-size: 0.7rem;\n' +
+                        '\tpadding: 2.5px;\n' +
+                        '\tbackground-color: #555;\n' +
+                        '\tborder-radius: 5px;\n' +
+                        '\tcursor: pointer;\n' +
+                        '}',
+                    html: '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Calculator</title><link rel="stylesheet" href="ex.css"></head><body><div class="calculator-card"><div class="input-div">0</div><div class="buttons"><button>AC</button><button>DEL</button><button>%</button><button>/</button><button>7</button><button>8</button><button>9</button><button>*</button><button>4</button><button>5</button><button>6</button><button>-</button><button>1</button><button>2</button><button>3</button><button>+</button><button>^</button><button>0</button><button>.</button><button>=</button></div></div><script src="ex.js"></script></body></html>',
+                    css: '* { margin: 0; padding: 0; box-sizing: border-box; } body { background-color: #000; display: flex; justify-content: center; align-items: center; min-height: 100vh; } .buttons { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-top: 20px; color: white; background-color: #333; padding: 10px; border-radius: 5px; } .input-div { font-size: 1.2rem; padding: 5px 15px; text-align: end; color: white; } .buttons button { font-size: 0.7rem; padding: 2.5px; background-color: #555; border-radius: 5px; cursor: pointer; }',
+                    difficulty: 'Easy',
+                    preview: true
+                },
+                {
+                    heading: 'Styling the Calculator-card.',
+                    info: 'You have to style the Calculator-card in such a way that it looks appealing, you can adjust the padding, background-color, border-radius, etc to do so',
+                    solution: '.calculator-card {\n' +
+                        '\tpadding: 0.8rem;\n' +
+                        '\tbackground-color: #222;\n' +
+                        '\tborder-radius: 10px;\n' +
+                        '}',
+                    difficulty: 'Easy',
+                    html: '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Calculator</title><link rel="stylesheet" href="ex.css"></head><body><div class="calculator-card"><div class="input-div">0</div><div class="buttons"><button>AC</button><button>DEL</button><button>%</button><button>/</button><button>7</button><button>8</button><button>9</button><button>*</button><button>4</button><button>5</button><button>6</button><button>-</button><button>1</button><button>2</button><button>3</button><button>+</button><button>^</button><button>0</button><button>.</button><button>=</button></div></div><script src="ex.js"></script></body></html>',
+                    css: '*{margin:0;padding:0;box-sizing:border-box;}body{background-color:#000;display:flex;justify-content:center;align-items:center;min-height:100vh;}.buttons{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin-top:20px;color:white;background-color:#333;padding:10px;border-radius:5px;}.input-div{font-size:1.2rem;padding:5px 15px;text-align:end;color:white;}.buttons button{font-size:0.7rem;padding:2.5px;background-color:#555;border-radius:5px;cursor:pointer;}.calculator-card{padding:0.8rem;background-color:#222;border-radius:10px;}',
+                    preview: true,
                 }
             ]
         }
