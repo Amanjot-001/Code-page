@@ -11,6 +11,7 @@
 </head>
 
 <body>
+    <!-- <div class="data"><%= data[0].project[0].question[0].example %></div> -->
     <div class="container">
         <nav>
             <div class="brand">
@@ -51,11 +52,16 @@
                     </div>
                     <div class="question">
                         <span class="ques-no">1.</span>
-                        <span class="ques-heading">Creating a main heading for App.</span>
-                        <div class="ques-info">You have to center the heading.</div>
+                        <span class="ques-heading">
+                            <%= data[0].project[0].question[0].heading %>
+                        </span>
+                        <div class="ques-info"><%= data[0].project[0].question[0].info %>
+                        </div>
                     </div>
                     <div class="example">
-                        <div id="ex-editor"></div>
+                        <div id="ex-editor">
+                            <%= data[0].project[0].question[0].example %>
+                        </div>
                     </div>
                     <div class="preview">
                         <p>Preview:</p>

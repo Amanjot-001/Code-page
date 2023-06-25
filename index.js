@@ -33,6 +33,7 @@ const ProjectSchema = new mongoose.Schema({
                 {
                     heading: String,
                     info: String,
+                    example: String,
                     hint: String,
                     solution: String,
                     like: Number,
@@ -41,7 +42,8 @@ const ProjectSchema = new mongoose.Schema({
                     html: String,
                     css: String,
                     js: String,
-                    prompt: String
+                    prompt: String,
+                    preview: Boolean
                 }
             ]
         }
@@ -57,7 +59,7 @@ const data = new project({
                 {
                     heading: "Creating a simple Calculator card.",
                     info: 'In this task, your goal is to create a user interface for a simple calculator by utilizing HTML. The calculator will be presented as a card, structured with a main <div> element having the class name "calculator-card". Within this card, you will need to include two additional <div> elements to organize the content.' +
-                        '/n' + '/n' +
+                        + '\n' + '\n' +
                         'The first inner <div>, with the class name "input-div" and insert "0" as default content in this div, this will serve as a container for the calculators input field. This field will be used to display the numbers and results of calculations to the user. ' +
                         '/n' + '/n' +
                         'The second inner <div>, with the class name "buttons", will act as a container for the calculators buttons. These buttons will enable users to perform basic mathematical operations such as addition, subtraction, multiplication, and division.',
@@ -196,6 +198,7 @@ const data = new project({
 // data.save();
 
 app.get('/save', async (req, res) => {
+    // await project.deleteMany({});
     const data = await project.find({});
     res.send(data);
 })
@@ -223,7 +226,8 @@ async function check() {
     console.log(checkedCode);
 }
 
-app.get('/path', (req, res) => {
+app.get('/path', async (req, res) => {
+    const data = await project.find({});
     res.render('code', { data });
 })
 
@@ -236,6 +240,11 @@ app.get('/ex', (req, res) => {
 app.get('/code', (req, res) => {
     res.send(code);
     res.send('hl');
+})
+
+app.post('/exampleData', async (req, res) => {
+    const data = await project.find({});
+    res.json(data)
 })
 
 
