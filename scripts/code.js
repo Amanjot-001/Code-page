@@ -4,11 +4,15 @@ exEditor.setTheme("ace/theme/twilight");
 exEditor.session.setMode("ace/mode/html");
 editor.setTheme("ace/theme/twilight");
 editor.session.setMode("ace/mode/html");
-let projectData = '';
+
 
 editor.setOption('enableLiveAutocompletion', true);
 
+let questionsData = {};
 const run = document.querySelector('.run-btn');
+
+fetchData();
+
 exEditor.setReadOnly(true);
 
 run.addEventListener('click', handleRunBtn);
@@ -28,6 +32,8 @@ function handleRunBtn() {
             console.log('correct');
         })
 }
+
+
 
 async function example() {
     try {
