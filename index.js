@@ -61,6 +61,7 @@ const data = new project({
                     example: '<div class="class-name">\n\t<div class="nested-class">\n\t</div>\n</div>',
                     solution: '<div class="calculator-card">\n\t<div class="input-div">\n\t</div>\n\t<div class="buttons">\n\t</div>\n</div>',
                     difficulty: 'Easy',
+                    prompt: 'create a div with class as "calculator-card" and two nested divs in it with classes "input-div" and "buttons" respectively in this order and "0" as default content of input-div',
                     preview: false
                 },
                 {
@@ -188,7 +189,7 @@ const data = new project({
     ]
 })
 
-
+// data.save();
 app.get('/save', async (req, res) => {
     // await project.deleteMany({});
     const data = await project.find({});
@@ -206,9 +207,9 @@ app.post('/dog', async (req, res) => {
     code = req.body.code;
     info = req.body.info;
     solution = req.body.solution;
+    prompt = req.body.prompt;
     console.log(code);
-    console.log
-    // console.log(info)
+    console.log(prompt)
     check();
     // res.sendStatus(200);
 })
@@ -228,8 +229,17 @@ async function check() {
         model: 'gpt-3.5-turbo',
         messages: [{
             role: 'user',
-            content: `${code}  can this code be able to do the following task ${info} and also check the class names or id names very strictly respond with only yes or no dont provide any additional text`
-            // content: `check in the provided code ${code}, the content should be centered in the body, like this solution code ${solution}, response in yes or no only`
+            content: `You have been assigned the task of reviewing submitted code based on a problem statement. Your role is to evaluate whether the provided code meets the requirements specified in the problem statement, including the correct order of elements. Please assess the submitted code in HTML, CSS, and JavaScript, considering functionality, correctness, adherence to coding standards, class and ID names, element order, and best practices.
+
+            Given the problem statement and the submitted code, determine whether the code satisfies the requirements and effectively solves the given problem. Provide a response of either "Yes" or "No" to indicate if the code meets the specified requirements.
+
+            Also check the order of elements as provided in the problem, if the code is in html.
+
+            Dont provide any other additional information just respond with yes or no.
+            
+            problem_statement = 'you need to center the elements horizontally and vertically in the body'
+            
+            code = ${code}`
         }]
     })
 
@@ -251,3 +261,8 @@ app.get('/code', (req, res) => {
 app.listen(8080, () => {
     console.log('running');
 });
+
+
+
+
+

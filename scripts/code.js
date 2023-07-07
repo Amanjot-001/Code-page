@@ -1,9 +1,9 @@
 var editor = ace.edit("editor");
 var exEditor = ace.edit("ex-editor");
 exEditor.setTheme("ace/theme/twilight");
-exEditor.session.setMode("ace/mode/html");
+exEditor.session.setMode("ace/mode/css");
 editor.setTheme("ace/theme/twilight");
-editor.session.setMode("ace/mode/html");
+editor.session.setMode("ace/mode/css");
 
 
 editor.setOption('enableLiveAutocompletion', true);
@@ -11,21 +11,22 @@ editor.setOption('enableLiveAutocompletion', true);
 let questionsData = {};
 const run = document.querySelector('.run-btn');
 
-fetchData();
-
 exEditor.setReadOnly(true);
 
 run.addEventListener('click', handleRunBtn);
 
 function handleRunBtn() {
     const code = editor.getValue();
-    fetch('http://localhost:8080/dog', {
+    fetch('/dog', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            code: code
+            code: code,
+            info: questionsData[0].project[0].question[2].info,
+            solution: questionsData[0].project[0].question[2].solution,
+            prompt: questionsData[0].project[0].question[2].prompt
         })
     })
         .then(() => {
@@ -33,15 +34,13 @@ function handleRunBtn() {
         })
 }
 
-
-
 async function example() {
     try {
         const response = await fetch('/exampleData', {
             method: 'POST'
         });
-        projectData = await response.json();
-        const exampleValue = projectData[0].project[0].question[0].example;
+        questionsData = await response.json();
+        const exampleValue = questionsData[0].project[0].question[2].example;
         exEditor.setValue(exampleValue);
     } catch (error) {
         console.error(error);
