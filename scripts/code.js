@@ -5,7 +5,6 @@ exEditor.session.setMode("ace/mode/css");
 editor.setTheme("ace/theme/twilight");
 editor.session.setMode("ace/mode/css");
 
-
 editor.setOption('enableLiveAutocompletion', true);
 
 let questionsData = {};
@@ -47,3 +46,12 @@ async function example() {
     }
 }
 example();
+
+const consoleBtn = document.querySelector('.console');
+const consoleArea = document.querySelector('.console-area');
+
+consoleBtn.addEventListener('click', handleConsoleBtn);
+
+function handleConsoleBtn() {
+    consoleArea.classList.toggle('hidden');
+}
