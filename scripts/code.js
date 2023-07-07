@@ -56,3 +56,12 @@ function handleConsoleBtn() {
     consoleArea.classList.toggle('hidden');
     consoleArea.classList.toggle('visible');
 }
+
+const fullscreenBtn = document.querySelector('.fullscreen-btn');
+const userIframe = document.querySelector('.result iframe');
+
+fullscreenBtn.addEventListener('click', handleFullscreenBtn);
+
+function handleFullscreenBtn() {
+    userIframe.classList.toggle('fullscreen');
+}

@@ -219,6 +219,11 @@ app.get('/ex', (req, res) => {
     res.sendFile(filePath);
 });
 
+app.get('/calculator', (req, res) => {
+    const filePath = path.join(__dirname, 'calculator.html');
+    res.sendFile(filePath);
+});
+
 app.post('/exampleData', async (req, res) => {
     const data = await project.find({});
     res.json(data)

@@ -196,7 +196,7 @@ iframe {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0px 20px;
+    padding: 0 20px;
     height: 2.75rem;
     border-top: 1px solid white;
     background-color: #000;
@@ -315,7 +315,7 @@ iframe {
     color: white;
 }
 
-.console-area .header span:nth-child(2) span  {
+.console-area .header span:nth-child(2) span {
     color: green;
 }
 
@@ -329,7 +329,7 @@ iframe {
     }
 }
 
-.console-area .result{
+.console-area .result {
     position: relative;
     height: 100%;
     display: flex;
@@ -350,12 +350,30 @@ iframe {
     width: 90%;
 }
 
+.fullscreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    width: 100% !important;
+    animation: fullscreen 200ms ease forwards;
+}
+
+@keyframes fullscreen {
+    0% {
+        transform: scale(0);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
 .section-2 .lower {
     display: flex;
     justify-content: space-between;
     /* height: 3.25rem; */
     align-items: center;
-    padding: 0.5rem 1rem;
+    padding: 0.4rem 1rem;
     /* border-top: 1px solid #ccc; */
 }
 
