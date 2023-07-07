@@ -339,9 +339,6 @@ iframe {
 .console-area .result>span {
     color: rgb(41, 62, 97);
     font-size: 2rem;
-    position: absolute;
-    right: 6%;
-    top: 5px;
     cursor: pointer;
 }
 
@@ -354,9 +351,23 @@ iframe {
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 9999;
+    z-index: 9998;
     width: 100% !important;
-    animation: fullscreen 200ms ease forwards;
+    animation: fullscreen 100ms ease forwards;
+}
+
+.smallscreenBtn {
+    position: absolute;
+    right: 6%;
+    top: 5px;
+}
+
+.fullscreenBtn {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    z-index: 9999;
+    animation: fullscreen 100ms ease forwards;
 }
 
 @keyframes fullscreen {

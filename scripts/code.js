@@ -64,4 +64,14 @@ fullscreenBtn.addEventListener('click', handleFullscreenBtn);
 
 function handleFullscreenBtn() {
     userIframe.classList.toggle('fullscreen');
+    if (userIframe.classList.contains('fullscreen')) {
+        fullscreenBtn.innerHTML = '<i class="fa-solid fa-minimize"></i>';
+        fullscreenBtn.classList.remove('smallscreenBtn');
+        fullscreenBtn.classList.add('fullscreenBtn');
+    }
+    else {
+        fullscreenBtn.innerHTML = '<i class="fa-solid fa-maximize"></i>';
+        fullscreenBtn.classList.remove('fullscreenBtn');
+        fullscreenBtn.classList.add('smallscreenBtn');
+    }
 }
