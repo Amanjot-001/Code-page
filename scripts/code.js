@@ -54,4 +54,5 @@ consoleBtn.addEventListener('click', handleConsoleBtn);
 
 function handleConsoleBtn() {
     consoleArea.classList.toggle('hidden');
+    consoleArea.classList.toggle('visible');
 }
