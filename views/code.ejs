@@ -11,7 +11,6 @@
 </head>
 
 <body>
-    <!-- <div class="data"><%= data[0].project[0].question[0].example %></div> -->
     <div class="container">
         <nav>
             <div class="brand">
@@ -53,10 +52,10 @@
                     <div class="question">
                         <span class="ques-no">1.</span>
                         <span class="ques-heading">
-                            <%= data[0].project[0].question[2].heading %>
+                            <%= data[0].project[0].question[0].heading %>
                         </span>
                         <div class="ques-info">
-                            <%= data[0].project[0].question[2].info %>
+                            <%= data[0].project[0].question[0].info %>
                         </div>
                     </div>
                     <div class="example">
@@ -98,7 +97,8 @@
                             <span class="fullscreen-btn smallscreenBtn"><i class="fa-solid fa-maximize"></i></span>
                             <iframe src="/calculator" frameborder="0"></iframe>
                         </div>
-                        <div class="feedback"></div>
+                        <div class="feedback hidden">
+                        </div>
                     </div>
                 </div>
                 <div class="lower">

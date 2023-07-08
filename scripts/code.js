@@ -1,9 +1,9 @@
 var editor = ace.edit("editor");
 var exEditor = ace.edit("ex-editor");
 exEditor.setTheme("ace/theme/twilight");
-exEditor.session.setMode("ace/mode/css");
+exEditor.session.setMode("ace/mode/html");
 editor.setTheme("ace/theme/twilight");
-editor.session.setMode("ace/mode/css");
+editor.session.setMode("ace/mode/html");
 
 editor.setOption('enableLiveAutocompletion', true);
 
@@ -23,13 +23,17 @@ function handleRunBtn() {
         },
         body: JSON.stringify({
             code: code,
-            info: questionsData[0].project[0].question[2].info,
-            solution: questionsData[0].project[0].question[2].solution,
-            prompt: questionsData[0].project[0].question[2].prompt
+            info: questionsData[0].project[0].question[0].info,
+            solution: questionsData[0].project[0].question[0].solution,
+            prompt: questionsData[0].project[0].question[0].prompt
         })
     })
-        .then(() => {
-            console.log('correct');
+        .then(res => res.json())
+        .then(data => {
+            const feedback = data.feedback;
+            const feedbackDiv = document.querySelector('.feedback');
+            feedbackDiv.textContent = feedback;
+            console.log('done');
         })
 }
 
@@ -39,7 +43,7 @@ async function example() {
             method: 'POST'
         });
         questionsData = await response.json();
-        const exampleValue = questionsData[0].project[0].question[2].example;
+        const exampleValue = questionsData[0].project[0].question[0].example;
         exEditor.setValue(exampleValue);
     } catch (error) {
         console.error(error);
@@ -75,3 +79,22 @@ function handleFullscreenBtn() {
         fullscreenBtn.classList.add('smallscreenBtn');
     }
 }
+
+const result = document.querySelector('.console-area .middle .result');
+const feedback = document.querySelector('.console-area .middle .feedback');
+const resultBtn = document.querySelector('.console-area .header span');
+const feedbackBtn = document.querySelector('.console-area .header span:last-child');
+
+feedbackBtn.addEventListener('click', () => {
+    if (feedback.classList.contains('hidden')) {
+        feedback.classList.remove('hidden');
+        result.classList.add('hidden');
+    }
+})
+
+resultBtn.addEventListener('click', () => {
+    if (result.classList.contains('hidden')) {
+        result.classList.remove('hidden');
+        feedback.classList.add('hidden');
+    }
+})

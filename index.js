@@ -203,14 +203,16 @@ app.use(cors());
 let code = '';
 let info = '';
 let solution = '';
+let checkedCode = '';
 app.post('/dog', async (req, res) => {
     code = req.body.code;
     info = req.body.info;
     solution = req.body.solution;
     prompt = req.body.prompt;
     console.log(code);
-    console.log(prompt)
-    check();
+    // console.log(prompt)
+    const feedback = await check();
+    res.json({feedback});
     // res.sendStatus(200);
 })
 
@@ -235,21 +237,20 @@ async function check() {
         messages: [{
             role: 'user',
             content: `You have been assigned the task of reviewing submitted code based on a problem statement. Your role is to evaluate whether the provided code meets the requirements specified in the problem statement, including the correct order of elements. Please assess the submitted code in HTML, CSS, and JavaScript, considering functionality, correctness, adherence to coding standards, class and ID names, element order, and best practices.
-
-            Given the problem statement and the submitted code, determine whether the code satisfies the requirements and effectively solves the given problem. Provide a response of either "Yes" or "No" to indicate if the code meets the specified requirements.
-
-            Also check the order of elements as provided in the problem, if the code is in html.
-
-            Dont provide any other additional information just respond with yes or no.
-            
-            problem_statement = 'you need to center the elements horizontally and vertically in the body'
-            
-            code = ${code}`
+            Given the problem statement and the submitted code, determine whether the code satisfies the requirements and effectively solves the given problem.
+            Please provide feedback on the code, highlighting any issues, missing elements, or areas for improvement. Avoid revealing the solution or mentioning that you are an AI language model.
+            Keep the feedback short and direct.
+            If the user code is irrelevant or not valid, please provide the following output: "Oops! Not a valid code."
+            Problem Statement:
+            ${info}
+            User Code:
+            ${code}`
         }]
     })
 
-    let checkedCode = completion.data.choices[0].message.content
+    checkedCode = completion.data.choices[0].message.content;
     console.log(checkedCode);
+    return checkedCode;
 }
 
 app.get('/path', async (req, res) => {
@@ -266,8 +267,3 @@ app.get('/code', (req, res) => {
 app.listen(8080, () => {
     console.log('running');
 });
-
-
-
-
-

@@ -281,7 +281,7 @@ iframe {
 }
 
 .hidden {
-    display: none;
+    display: none !important;
 }
 
 .visible {
@@ -294,6 +294,24 @@ iframe {
     overflow: auto;
     flex-direction: column;
     animation: console 500ms ease forwards;
+}
+
+.console-area::-webkit-scrollbar {
+    background-color: transparent;
+    height: 7px;
+    width: 7px;
+}
+
+.console-area::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    background-color: transparent;
+    border-radius: 10px;
+}
+
+.console-area::-webkit-scrollbar-thumb {
+    background-color: darkgrey;
+    outline: 1px solid slategrey;
+    border-radius: 5px;
 }
 
 .console-area>.middle {
@@ -315,6 +333,10 @@ iframe {
     color: white;
 }
 
+.console-area .header span {
+    cursor: pointer;
+}
+
 .console-area .header span:nth-child(2) span {
     color: green;
 }
@@ -334,6 +356,7 @@ iframe {
     height: 100%;
     display: flex;
     justify-content: center;
+    overflow-y: auto;
 }
 
 .console-area .result>span {
@@ -374,8 +397,25 @@ iframe {
     0% {
         transform: scale(0);
     }
+
     100% {
         transform: scale(1);
+    }
+}
+
+.console-area .feedback {
+    height: 100%;
+    animation: feedback 200ms ease forwards;
+    overflow-y: auto;
+}
+
+@keyframes feedback {
+    0% {
+        transform: translateX(100%);
+    }
+
+    100% {
+        transform: translateX(0%);
     }
 }
 
