@@ -407,6 +407,7 @@ iframe {
     height: 100%;
     animation: feedback 200ms ease forwards;
     overflow-y: auto;
+    white-space: pre-line;
 }
 
 @keyframes feedback {

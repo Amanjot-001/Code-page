@@ -16,25 +16,29 @@ run.addEventListener('click', handleRunBtn);
 
 function handleRunBtn() {
     const code = editor.getValue();
-    fetch('/dog', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            code: code,
-            info: questionsData[0].project[0].question[0].info,
-            solution: questionsData[0].project[0].question[0].solution,
-            prompt: questionsData[0].project[0].question[0].prompt
+    if (code) {
+        fetch('/dog', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                code: code,
+                info: questionsData[0].project[0].question[0].info,
+                solution: questionsData[0].project[0].question[0].solution,
+                prompt: questionsData[0].project[0].question[0].prompt
+            })
         })
-    })
-        .then(res => res.json())
-        .then(data => {
-            const feedback = data.feedback;
-            const feedbackDiv = document.querySelector('.feedback');
-            feedbackDiv.textContent = feedback;
-            console.log('done');
-        })
+            .then(res => res.json())
+            .then(data => {
+                const feedback = data.feedback;
+                const feedbackDiv = document.querySelector('.feedback');
+                feedbackDiv.textContent = feedback;
+                console.log('done');
+            })
+        consoleArea.classList.remove('hidden');
+        consoleArea.classList.add('visible');
+    }
 }
 
 async function example() {
