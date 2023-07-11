@@ -1,4 +1,4 @@
-import { addComments,addLine } from './project.js'
+import { addCommentsInHtml, addCommentsInCss, addCommentsInJs } from './project.js'
 
 var editor = ace.edit("editor");
 var exEditor = ace.edit("ex-editor");
@@ -11,6 +11,9 @@ editor.session.setMode("ace/mode/html");
 
 editor.setOption('enableLiveAutocompletion', true);
 
+const questionHeading = document.querySelector('.ques-heading');
+const questionInfo  = document.querySelector('.ques-info');
+
 let questionsData = {};
 const run = document.querySelector('.run-btn');
 
@@ -21,7 +24,7 @@ run.addEventListener('click', handleRunBtn);
 async function handleRunBtn() {
     let code = editor.getValue();
 
-   code =  addComments(code, 'a');
+   code =  addCommentsInHtml(code, 'a');
     await fetch('/p', {
         method: 'POST',
         headers: {
@@ -127,3 +130,8 @@ resultBtn.addEventListener('click', () => {
         feedback.classList.add('hidden');
     }
 })
+
+function handlePrevBtn() {
+    questionHeading = questionsData[0].project[0].question[questionNumber].heading;
+    questionInfo = questionsData[0].project[0].question[questionNumber].info;
+}

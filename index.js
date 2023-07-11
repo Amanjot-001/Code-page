@@ -31,6 +31,7 @@ const ProjectSchema = new mongoose.Schema({
         {
             question: [
                 {
+                    quesNumber: Number,
                     heading: String,
                     info: String,
                     hint: String,
@@ -48,7 +49,8 @@ const ProjectSchema = new mongoose.Schema({
                     previousCss: String,
                     previousJs: String,
                     lang: String,
-                    selectedClass: String
+                    selectedClassForHtml: String
+
                 }
             ]
         }
@@ -62,6 +64,7 @@ const data = new project({
         {
             question: [
                 {
+                    quesNumber: 1,
                     heading: "Creating a simple Calculator card.",
                     info: 'In this task, your goal is to create a user interface for a simple calculator by utilizing HTML. The calculator will be presented as a card, structured with a main <div> element having the class name "calculator-card". Within this card, you will need to include two additional <div> elements to organize the content.\n\nThe first inner <div>, with the class name "display" and insert "0" as default content in this div, this will serve as a container for the calculator\'s input field. This field will be used to display the numbers and results of calculations to the user.\n\nThe second inner <div>, with the class name "buttons", will act as a container for the calculator\'s buttons. These buttons will enable users to perform basic mathematical operations such as addition, subtraction, multiplication, and division.',
                     example: '<div class="class-name">\n\t<div class="nested-class">\n\t</div>\n</div>',
@@ -71,6 +74,7 @@ const data = new project({
                     preview: false
                 },
                 {
+                    quesNumber: 2,
                     heading: 'Adding buttons in Calculator.',
                     info:
                         'As part of the calculator card creation, you are required to initialize and include 20 button elements inside the <div> element with the class name "buttons". These buttons will provide functionality for various operations and numerical inputs in the calculator.\n' +
@@ -102,6 +106,7 @@ const data = new project({
                     preview: false
                 },
                 {
+                    quesNumber: 3,
                     heading: 'Center the Calculator card.',
                     info: 'To create an attractive and user-friendly interface, it is essential to style the <body> tag appropriately. This involves centering the calculator card on the page and selecting a suitable background color.\n' +
                         'The styling of the body tag should ensure that the calculator card is positioned at the center of the page, while also considering the choice of an appropriate background color.',
@@ -119,6 +124,7 @@ const data = new project({
                     preview: true
                 },
                 {
+                    quesNumber: 4,
                     heading: 'Styling the buttons container',
                     info: 'Apply the following styles to the <div> element with the class name "buttons" to achieve a visually pleasing layout:\n' +
                         'Arrange the button elements in a grid with 5 rows and 4 columns.\n' +
@@ -148,6 +154,7 @@ const data = new project({
                     preview: true
                 },
                 {
+                    quesNumber: 5,
                     heading: 'Styling the display and buttons.',
                     info: 'To style the <div> element with the class name "display":\n' +
                         'Font Size: Change the text size using font-size.\n' +
@@ -178,6 +185,7 @@ const data = new project({
                     preview: true
                 },
                 {
+                    quesNumber: 6,
                     heading: 'Styling the Calculator-card.',
                     info: 'You have to style the Calculator-card in such a way that it looks appealing, you can adjust the padding, background-color, border-radius, etc to do so',
                     solution: '.calculator-card {\n' +

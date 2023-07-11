@@ -10,6 +10,7 @@ body {
     overflow: hidden;
     display: flex;
     flex-direction: column;
+    font-family: 'Inter', sans-serif;
 }
 
 a {
@@ -173,6 +174,7 @@ nav {
     font-size: 12px;
     border-radius: 5px;
 }
+
 /* 
 #ex-editor ::selection{
   background-color: transparent !important;
@@ -462,4 +464,19 @@ iframe {
 
 .submit-btn {
     background-color: green;
+}
+
+code {
+    background-color: #ffffff12;
+    border-color: #f7faff1f;
+    color: #eff1f6bf;
+    border-radius: 5px;
+    border-width: 1px;
+    line-height: 1rem;
+    padding: .125rem;
+    white-space: pre-wrap
+}
+
+.ques-info ul li {
+    margin-left: 1.5rem;
 }
