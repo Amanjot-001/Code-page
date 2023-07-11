@@ -1,9 +1,13 @@
+import { addComments,addLine } from './project.js'
+
 var editor = ace.edit("editor");
 var exEditor = ace.edit("ex-editor");
 exEditor.setTheme("ace/theme/twilight");
 exEditor.session.setMode("ace/mode/html");
+exEditor.clearSelection();
 editor.setTheme("ace/theme/twilight");
 editor.session.setMode("ace/mode/html");
+
 
 editor.setOption('enableLiveAutocompletion', true);
 
@@ -14,8 +18,28 @@ exEditor.setReadOnly(true);
 
 run.addEventListener('click', handleRunBtn);
 
-function handleRunBtn() {
-    const code = editor.getValue();
+async function handleRunBtn() {
+    let code = editor.getValue();
+
+   code =  addComments(code, 'a');
+    await fetch('/p', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            code: code
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+    //  code =  addLine(data, 'a');
+    editor.setValue(data);
+    });
+
+
+
+
     if (code) {
         fetch('/dog', {
             method: 'POST',
@@ -40,6 +64,7 @@ function handleRunBtn() {
         consoleArea.classList.add('visible');
     }
 }
+
 
 async function example() {
     try {

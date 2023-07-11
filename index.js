@@ -7,6 +7,7 @@ const mongoose = require('mongoose');
 const path = require('path');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const prettier = require("prettier");
 
 const configuration = new Configuration({
     apiKey: process.env.API_KEY
@@ -39,10 +40,15 @@ const ProjectSchema = new mongoose.Schema({
                     like: Number,
                     dislike: Number,
                     difficulty: String,
-                    html: String,
-                    css: String,
-                    js: String,
-                    prompt: String
+                    previewHtml: String,
+                    previewCss: String,
+                    previewJs: String,
+                    prompt: String,
+                    previousHtml: String,
+                    previousCss: String,
+                    previousJs: String,
+                    lang: String,
+                    selectedClass: String
                 }
             ]
         }
@@ -57,11 +63,11 @@ const data = new project({
             question: [
                 {
                     heading: "Creating a simple Calculator card.",
-                    info: 'In this task, your goal is to create a user interface for a simple calculator by utilizing HTML. The calculator will be presented as a card, structured with a main <div> element having the class name "calculator-card". Within this card, you will need to include two additional <div> elements to organize the content.\n\nThe first inner <div>, with the class name "input-div" and insert "0" as default content in this div, this will serve as a container for the calculator\'s input field. This field will be used to display the numbers and results of calculations to the user.\n\nThe second inner <div>, with the class name "buttons", will act as a container for the calculator\'s buttons. These buttons will enable users to perform basic mathematical operations such as addition, subtraction, multiplication, and division.',
+                    info: 'In this task, your goal is to create a user interface for a simple calculator by utilizing HTML. The calculator will be presented as a card, structured with a main <div> element having the class name "calculator-card". Within this card, you will need to include two additional <div> elements to organize the content.\n\nThe first inner <div>, with the class name "display" and insert "0" as default content in this div, this will serve as a container for the calculator\'s input field. This field will be used to display the numbers and results of calculations to the user.\n\nThe second inner <div>, with the class name "buttons", will act as a container for the calculator\'s buttons. These buttons will enable users to perform basic mathematical operations such as addition, subtraction, multiplication, and division.',
                     example: '<div class="class-name">\n\t<div class="nested-class">\n\t</div>\n</div>',
-                    solution: '<div class="calculator-card">\n\t<div class="input-div">\n\t</div>\n\t<div class="buttons">\n\t</div>\n</div>',
+                    solution: '<div class="calculator-card">\n\t<div class="display">\n\t</div>\n\t<div class="buttons">\n\t</div>\n</div>',
                     difficulty: 'Easy',
-                    prompt: 'create a div with class as "calculator-card" and two nested divs in it with classes "input-div" and "buttons" respectively in this order and "0" as default content of input-div',
+                    prompt: 'create a div with class as "calculator-card" and two nested divs in it with classes "display" and "buttons" respectively in this order and "0" as default content of display',
                     preview: false
                 },
                 {
@@ -108,7 +114,7 @@ const data = new project({
                         '\tmin-height: 100vh;\n' +
                         '}',
                     difficulty: 'Easy',
-                    html: '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Calculator</title><link rel="stylesheet" href="ex.css"></head><body><div class="calculator-card"><div class="input-div">0</div><div class="buttons"><button>AC</button><button>DEL</button><button>%</button><button>/</button><button>7</button><button>8</button><button>9</button><button>*</button><button>4</button><button>5</button><button>6</button><button>-</button><button>1</button><button>2</button><button>3</button><button>+</button><button>^</button><button>0</button><button>.</button><button>=</button></div></div><script src="ex.js"></script></body></html>',
+                    html: '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Calculator</title><link rel="stylesheet" href="ex.css"></head><body><div class="calculator-card"><div class="display">0</div><div class="buttons"><button>AC</button><button>DEL</button><button>%</button><button>/</button><button>7</button><button>8</button><button>9</button><button>*</button><button>4</button><button>5</button><button>6</button><button>-</button><button>1</button><button>2</button><button>3</button><button>+</button><button>^</button><button>0</button><button>.</button><button>=</button></div></div><script src="ex.js"></script></body></html>',
                     css: '* { margin: 0; padding: 0; box-sizing: border-box; } body { background-color: #000; display: flex; justify-content: center; align-items: center; min-height: 100vh; }',
                     preview: true
                 },
@@ -137,13 +143,13 @@ const data = new project({
                         '\tborder-radius: 5px;\n' +
                         '}',
                     difficulty: 'Medium',
-                    html: '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Calculator</title><link rel="stylesheet" href="ex.css"></head><body><div class="calculator-card"><div class="input-div">0</div><div class="buttons"><button>AC</button><button>DEL</button><button>%</button><button>/</button><button>7</button><button>8</button><button>9</button><button>*</button><button>4</button><button>5</button><button>6</button><button>-</button><button>1</button><button>2</button><button>3</button><button>+</button><button>^</button><button>0</button><button>.</button><button>=</button></div></div><script src="ex.js"></script></body></html>',
+                    html: '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Calculator</title><link rel="stylesheet" href="ex.css"></head><body><div class="calculator-card"><div class="display">0</div><div class="buttons"><button>AC</button><button>DEL</button><button>%</button><button>/</button><button>7</button><button>8</button><button>9</button><button>*</button><button>4</button><button>5</button><button>6</button><button>-</button><button>1</button><button>2</button><button>3</button><button>+</button><button>^</button><button>0</button><button>.</button><button>=</button></div></div><script src="ex.js"></script></body></html>',
                     css: '* { margin: 0; padding: 0; box-sizing: border-box; } body { background-color: #000; display: flex; justify-content: center; align-items: center; min-height: 100vh; } .buttons { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-top: 20px; color: white; background-color: #333; padding: 10px; border-radius: 5px; }',
                     preview: true
                 },
                 {
-                    heading: 'Styling the input-div and buttons.',
-                    info: 'To style the <div> element with the class name "input-div":\n' +
+                    heading: 'Styling the display and buttons.',
+                    info: 'To style the <div> element with the class name "display":\n' +
                         'Font Size: Change the text size using font-size.\n' +
                         'Padding: Add space around the content using padding.\n' +
                         'Text Alignment: Align the text using text-align.\n' +
@@ -153,7 +159,7 @@ const data = new project({
                         'Padding: Add space around the content using padding.\n' +
                         'Background Color: Change the background color using background-color.\n' +
                         'Cursor Style: Change the cursor appearance using cursor.',
-                    solution: '.input-div {\n' +
+                    solution: '.display {\n' +
                         '\tfont-size: 1.2rem;\n' +
                         '\tpadding: 5px 15px;\n' +
                         '\ttext-align: end;\n' +
@@ -166,8 +172,8 @@ const data = new project({
                         '\tborder-radius: 5px;\n' +
                         '\tcursor: pointer;\n' +
                         '}',
-                    html: '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Calculator</title><link rel="stylesheet" href="ex.css"></head><body><div class="calculator-card"><div class="input-div">0</div><div class="buttons"><button>AC</button><button>DEL</button><button>%</button><button>/</button><button>7</button><button>8</button><button>9</button><button>*</button><button>4</button><button>5</button><button>6</button><button>-</button><button>1</button><button>2</button><button>3</button><button>+</button><button>^</button><button>0</button><button>.</button><button>=</button></div></div><script src="ex.js"></script></body></html>',
-                    css: '* { margin: 0; padding: 0; box-sizing: border-box; } body { background-color: #000; display: flex; justify-content: center; align-items: center; min-height: 100vh; } .buttons { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-top: 20px; color: white; background-color: #333; padding: 10px; border-radius: 5px; } .input-div { font-size: 1.2rem; padding: 5px 15px; text-align: end; color: white; } .buttons button { font-size: 0.7rem; padding: 2.5px; background-color: #555; border-radius: 5px; cursor: pointer; }',
+                    html: '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Calculator</title><link rel="stylesheet" href="ex.css"></head><body><div class="calculator-card"><div class="display">0</div><div class="buttons"><button>AC</button><button>DEL</button><button>%</button><button>/</button><button>7</button><button>8</button><button>9</button><button>*</button><button>4</button><button>5</button><button>6</button><button>-</button><button>1</button><button>2</button><button>3</button><button>+</button><button>^</button><button>0</button><button>.</button><button>=</button></div></div><script src="ex.js"></script></body></html>',
+                    css: '* { margin: 0; padding: 0; box-sizing: border-box; } body { background-color: #000; display: flex; justify-content: center; align-items: center; min-height: 100vh; } .buttons { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-top: 20px; color: white; background-color: #333; padding: 10px; border-radius: 5px; } .display { font-size: 1.2rem; padding: 5px 15px; text-align: end; color: white; } .buttons button { font-size: 0.7rem; padding: 2.5px; background-color: #555; border-radius: 5px; cursor: pointer; }',
                     difficulty: 'Easy',
                     preview: true
                 },
@@ -180,8 +186,8 @@ const data = new project({
                         '\tborder-radius: 10px;\n' +
                         '}',
                     difficulty: 'Easy',
-                    html: '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Calculator</title><link rel="stylesheet" href="ex.css"></head><body><div class="calculator-card"><div class="input-div">0</div><div class="buttons"><button>AC</button><button>DEL</button><button>%</button><button>/</button><button>7</button><button>8</button><button>9</button><button>*</button><button>4</button><button>5</button><button>6</button><button>-</button><button>1</button><button>2</button><button>3</button><button>+</button><button>^</button><button>0</button><button>.</button><button>=</button></div></div><script src="ex.js"></script></body></html>',
-                    css: '*{margin:0;padding:0;box-sizing:border-box;}body{background-color:#000;display:flex;justify-content:center;align-items:center;min-height:100vh;}.buttons{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin-top:20px;color:white;background-color:#333;padding:10px;border-radius:5px;}.input-div{font-size:1.2rem;padding:5px 15px;text-align:end;color:white;}.buttons button{font-size:0.7rem;padding:2.5px;background-color:#555;border-radius:5px;cursor:pointer;}.calculator-card{padding:0.8rem;background-color:#222;border-radius:10px;}',
+                    html: '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Calculator</title><link rel="stylesheet" href="ex.css"></head><body><div class="calculator-card"><div class="display">0</div><div class="buttons"><button>AC</button><button>DEL</button><button>%</button><button>/</button><button>7</button><button>8</button><button>9</button><button>*</button><button>4</button><button>5</button><button>6</button><button>-</button><button>1</button><button>2</button><button>3</button><button>+</button><button>^</button><button>0</button><button>.</button><button>=</button></div></div><script src="ex.js"></script></body></html>',
+                    css: '*{margin:0;padding:0;box-sizing:border-box;}body{background-color:#000;display:flex;justify-content:center;align-items:center;min-height:100vh;}.buttons{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin-top:20px;color:white;background-color:#333;padding:10px;border-radius:5px;}.display{font-size:1.2rem;padding:5px 15px;text-align:end;color:white;}.buttons button{font-size:0.7rem;padding:2.5px;background-color:#555;border-radius:5px;cursor:pointer;}.calculator-card{padding:0.8rem;background-color:#222;border-radius:10px;}',
                     preview: true,
                 }
             ]
@@ -209,12 +215,27 @@ app.post('/dog', async (req, res) => {
     info = req.body.info;
     solution = req.body.solution;
     prompt = req.body.prompt;
-    console.log(code);
+    // console.log(code);
     // console.log(prompt)
     const feedback = await check();
     res.json({feedback});
     // res.sendStatus(200);
 })
+
+app.post('/p', async (req, res) => {
+    let code = req.body.code;
+    const formattedCode = await prettier.format(code, {
+        parser: 'html',
+        semi: false,
+        singleQuote: true,
+        trailingComma: 'es5',
+        printWidth: 80, // Set the desired line width for indentation
+        htmlWhitespaceSensitivity: 'ignore', // Ignore HTML indentation rules
+        embeddedLanguageFormatting: 'off', // Disable formatting for embedded languages
+    });
+    console.log(formattedCode);
+    res.json(formattedCode);
+});
 
 app.get('/ex', (req, res) => {
     const filePath = path.join(__dirname, 'ex.html');
