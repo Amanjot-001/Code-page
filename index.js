@@ -66,7 +66,25 @@ const data = new project({
                 {
                     quesNumber: 1,
                     heading: "Creating a simple Calculator card.",
-                    info: 'In this task, your goal is to create a user interface for a simple calculator by utilizing HTML. The calculator will be presented as a card, structured with a main <div> element having the class name "calculator-card". Within this card, you will need to include two additional <div> elements to organize the content.\n\nThe first inner <div>, with the class name "display" and insert "0" as default content in this div, this will serve as a container for the calculator\'s input field. This field will be used to display the numbers and results of calculations to the user.\n\nThe second inner <div>, with the class name "buttons", will act as a container for the calculator\'s buttons. These buttons will enable users to perform basic mathematical operations such as addition, subtraction, multiplication, and division.',
+                    info: `
+                    In this task, your goal is to create a user interface for a simple calculator by utilizing
+                    HTML. The calculator will be presented as a card, structured with a main <code>div</code>
+                    element having the class name "calculator-card". Within this card, you will need to include
+                    two additional <code>div</code> elements to organize the content.
+                    
+                    <ul>
+                        <li> The first inner <code>div</code>, with the class name "display" and insert "0" as
+                            default content in this div, this will serve as a container for the calculator's
+                            input field. This field will be used to display the numbers and results of
+                            calculations to the user.
+                        </li>
+                        <li> The second inner <code>div</code>, with the class name "buttons", will act as a
+                            container for the calculator's buttons. These buttons will enable users to perform
+                            basic mathematical operations such as addition, subtraction, multiplication, and
+                            division.
+                        </li>
+                    </ul>
+                    `,
                     example: '<div class="class-name">\n\t<div class="nested-class">\n\t</div>\n</div>',
                     solution: '<div class="calculator-card">\n\t<div class="display">\n\t</div>\n\t<div class="buttons">\n\t</div>\n</div>',
                     difficulty: 'Easy',
@@ -226,7 +244,7 @@ app.post('/dog', async (req, res) => {
     // console.log(code);
     // console.log(prompt)
     const feedback = await check();
-    res.json({feedback});
+    res.json({ feedback });
     // res.sendStatus(200);
 })
 
