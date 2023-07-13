@@ -3,12 +3,12 @@ export function addCommentsInHtml(str, Sclass) {
     str = removeCommentsinHtml(str);
     const tempDiv = document.createElement('div');
     tempDiv.innerHTML = `${str}`;
-    console.log(str)
-    console.log(tempDiv.innerHTML);
+    // console.log(str)
+    // console.log(tempDiv.innerHTML);
     const selectedClass = tempDiv.querySelector(`.${Sclass}`);
     selectedClass.innerHTML = '\n<!-- Write your code here -->\n';
 
-    console.log(tempDiv.innerHTML);
+    // console.log(tempDiv.innerHTML);
     return `<body>  ${tempDiv.innerHTML} </body>`;
 }
 

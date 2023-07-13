@@ -29,87 +29,97 @@ document.addEventListener('DOMContentLoaded', async () => {
     await player();
 
     lang = questionsData[0].project[0].question[0].lang;
-    editor.setValue(playerData.projects[0].question[0].editor[lang]);
+    let code = '';
+
+    var commentFunctions = {
+        html: addCommentsInHtml,
+        css: addCommentsInCss,
+        js: addCommentsInJs
+    };      
+
+    if(lang == 'html')
+        code = commentFunctions[lang](playerData.projects[0].question[0].editor[lang], 'a');
+    else 
+        code = commentFunctions[lang](playerData.projects[0].question[0].editor[lang]);
+    editor.setValue(code);
 })
 
 run.addEventListener('click', handleRunBtn);
 
 async function handleRunBtn() {
     let code = editor.getValue();
-
-    // code =  addCommentsInHtml(code, 'a');
-    await fetch('/p', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            code: code
-        })
-    })
-    .then(response => response.json())
-    .then(data => {
-    //  code =  addLine(data, 'a');
-    editor.setValue(data);
-    });
-
-    let htmlCode = '', cssCode = '', jsCode = '';
-    // const language = questionsData[0].project[0].question[0].lang;
-    if(lang == 'html') {
-        htmlCode = editor.getValue();
-        console.log(playerData.projects[0].question[0].editor['css'])
-        cssCode = playerData.projects[0].question[0].editor['css'];
-        jsCode = playerData.projects[0].question[0].editor['js'];
-    }
-    else if(lang == 'css') {
-        htmlCode = playerData.projects[0].question[0].editor['html'];
-        cssCode = editor.getValue();
-        jsCode = playerData.projects[0].question[0].editor['js'];
-    }
-    else {
-        htmlCode = playerData.projects[0].question[0].editor['html'];
-        cssCode = playerData.projects[0].question[0].editor['css'];
-        jsCode = editor.getValue();
-    }
-
-    fetch('/handleRunBtn', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            quesNo: questionsData[0].project[0].question[0].quesNumber,
-            lang: lang,
-            html: htmlCode,
-            css: cssCode,
-            js: jsCode,
-        })
-    })
-
-    if (code) {
-        fetch('/dog', {
+    if(code) {
+        await fetch('/p', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                code: code,
-                info: questionsData[0].project[0].question[0].info,
-                solution: questionsData[0].project[0].question[0].solution,
-                prompt: questionsData[0].project[0].question[0].prompt
+                code: code
             })
         })
-            .then(res => res.json())
-            .then(data => {
-                const feedback = data.feedback;
-                const feedbackDiv = document.querySelector('.feedback');
-                feedbackDiv.textContent = feedback;
-                console.log('done');
+        .then(response => response.json())
+        .then(data => {
+        editor.setValue(data);
+        });
+    
+        let htmlCode = '', cssCode = '', jsCode = '';
+        // const language = questionsData[0].project[0].question[0].lang;
+        if(lang == 'html') {
+            htmlCode = editor.getValue();
+            console.log(playerData.projects[0].question[0].editor['css'])
+            cssCode = playerData.projects[0].question[0].editor['css'];
+            jsCode = playerData.projects[0].question[0].editor['js'];
+        }
+        else if(lang == 'css') {
+            htmlCode = playerData.projects[0].question[0].editor['html'];
+            cssCode = editor.getValue();
+            jsCode = playerData.projects[0].question[0].editor['js'];
+        }
+        else {
+            htmlCode = playerData.projects[0].question[0].editor['html'];
+            cssCode = playerData.projects[0].question[0].editor['css'];
+            jsCode = editor.getValue();
+        }
+    
+        fetch('/handleRunBtn', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                quesNo: questionsData[0].project[0].question[0].quesNumber,
+                lang: lang,
+                html: htmlCode,
+                css: cssCode,
+                js: jsCode,
             })
-        consoleArea.classList.remove('hidden');
-        consoleArea.classList.add('visible');
-    }
+        })
+        
+            fetch('/dog', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({  
+                    code: code,
+                    info: questionsData[0].project[0].question[0].info,
+                    solution: questionsData[0].project[0].question[0].solution,
+                    prompt: questionsData[0].project[0].question[0].prompt
+                })
+            })
+                .then(res => res.json())
+                .then(data => {
+                    const feedback = data.feedback;
+                    const feedbackDiv = document.querySelector('.feedback');
+                    feedbackDiv.textContent = feedback;
+                    console.log('done');
+            })
+             
+    consoleArea.classList.remove('hidden');
+    consoleArea.classList.add('visible');
 
+    }
     iframe.contentWindow.location.reload();
 }
 

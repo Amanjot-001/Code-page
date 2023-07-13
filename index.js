@@ -439,6 +439,7 @@ let code = '';
 let info = '';
 let solution = '';
 let checkedCode = '';
+
 app.post('/dog', async (req, res) => {
     code = req.body.code;
     info = req.body.info;
@@ -448,7 +449,6 @@ app.post('/dog', async (req, res) => {
     // console.log(prompt)
     const feedback = await check();
     res.json({ feedback });
-    // res.sendStatus(200);
 })
 
 app.post('/p', async (req, res) => {
@@ -462,7 +462,7 @@ app.post('/p', async (req, res) => {
         htmlWhitespaceSensitivity: 'ignore', // Ignore HTML indentation rules
         embeddedLanguageFormatting: 'off', // Disable formatting for embedded languages
     });
-    console.log(formattedCode);
+    // console.log(formattedCode);
     res.json(formattedCode);
 });
 
@@ -488,7 +488,7 @@ app.post('/submit', async (req, res) => {
         newQuestion.editor['js'] = PlayerData.projects[0].question[number-1].editor['js'];
         PlayerData.projects[0].question.push(newQuestion);
     await PlayerData.save();
-    res.send(PlayerData);
+    res.sendStatus(200);
 });
 
 app.post('/handleRunBtn', async (req, res) => {
