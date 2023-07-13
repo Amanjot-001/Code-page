@@ -441,15 +441,20 @@ let solution = '';
 let checkedCode = '';
 
 app.post('/dog', async (req, res) => {
-    code = req.body.code;
-    info = req.body.info;
-    solution = req.body.solution;
-    prompt = req.body.prompt;
-    // console.log(code);
-    // console.log(prompt)
-    const feedback = await check();
-    res.json({ feedback });
-})
+    try {
+      const code = req.body.code;
+      const info = req.body.info;
+      const solution = req.body.solution;
+      const prompt = req.body.prompt;
+      // console.log(code);
+      // console.log(prompt)
+      const feedback = await check(code, info);
+      res.json({ feedback });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'An error occurred while processing the request.' });
+    }
+});
 
 app.post('/p', async (req, res) => {
     let code = req.body.code;
@@ -569,12 +574,13 @@ app.post('/playerData', async (req, res) => {
     res.json(data);
 })
 
-async function check() {
-    const completion = await openai.createChatCompletion({
+async function check(code, info) {
+    try {
+      const completion = await openai.createChatCompletion({
         model: 'gpt-3.5-turbo',
         messages: [{
-            role: 'user',
-            content: `You have been assigned the task of reviewing submitted code based on a problem statement. Your role is to evaluate whether the provided code meets the requirements specified in the problem statement, including the correct order of elements. Please assess the submitted code in HTML, CSS, and JavaScript, considering functionality, correctness, adherence to coding standards, class and ID names, element order, and best practices.
+          role: 'user',
+          content: `You have been assigned the task of reviewing submitted code based on a problem statement. Your role is to evaluate whether the provided code meets the requirements specified in the problem statement, including the correct order of elements. Please assess the submitted code in HTML, CSS, and JavaScript, considering functionality, correctness, adherence to coding standards, class and ID names, element order, and best practices.
             Given the problem statement and the submitted code, determine whether the code satisfies the requirements and effectively solves the given problem.
             Please provide feedback on the code, highlighting any issues, missing elements, or areas for improvement. Avoid revealing the solution or mentioning that you are an AI language model.
             Keep the feedback short and direct.
@@ -584,11 +590,15 @@ async function check() {
             User Code:
             ${code}`
         }]
-    })
-
-    checkedCode = completion.data.choices[0].message.content;
-    console.log(checkedCode);
-    return checkedCode;
+      });
+  
+      const checkedCode = completion.data.choices[0].message.content;
+      console.log(checkedCode);
+      return checkedCode;
+    } catch (error) {
+      console.error(error);
+      throw new Error('An error occurred while checking the code.');
+    }
 }
 
 app.get('/path', async (req, res) => {

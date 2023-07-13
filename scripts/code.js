@@ -114,7 +114,11 @@ async function handleRunBtn() {
                     const feedbackDiv = document.querySelector('.feedback');
                     feedbackDiv.textContent = feedback;
                     console.log('done');
-            })
+                })
+                .catch(error => {
+                    const feedbackDiv = document.querySelector('.feedback');
+                    feedbackDiv.textContent = 'Oops! server error';
+                })
              
     consoleArea.classList.remove('hidden');
     consoleArea.classList.add('visible');
