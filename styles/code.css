@@ -387,6 +387,7 @@ iframe {
 .console-area .result iframe {
     height: 100%;
     width: 90%;
+    border: dashed 1px white;
 }
 
 .fullscreen {

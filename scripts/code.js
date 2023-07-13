@@ -1,4 +1,3 @@
-
 import { addCommentsInHtml, addCommentsInCss, addCommentsInJs } from './project.js'
 
 var editor = ace.edit("editor");
@@ -23,12 +22,20 @@ const submit = document.querySelector('.submit-btn');
 
 exEditor.setReadOnly(true);
 
+document.addEventListener('DOMContentLoaded', async () => {
+    await example();
+    await player();
+
+    const lang = questionsData[0].project[0].question[0].lang;
+    editor.setValue(playerData.projects[0].question[0].editor[lang]);
+})
+
 run.addEventListener('click', handleRunBtn);
 
 async function handleRunBtn() {
     let code = editor.getValue();
 
-    code =  addCommentsInHtml(code, 'a');
+    // code =  addCommentsInHtml(code, 'a');
     await fetch('/p', {
         method: 'POST',
         headers: {
@@ -43,7 +50,6 @@ async function handleRunBtn() {
     //  code =  addLine(data, 'a');
     editor.setValue(data);
     });
-    console.log(playerData);
 
     let htmlCode = '', cssCode = '', jsCode = '';
     const language = questionsData[0].project[0].question[0].lang;
@@ -77,8 +83,6 @@ async function handleRunBtn() {
             js: jsCode,
         })
     })
-
-
 
     if (code) {
         fetch('/dog', {
@@ -116,12 +120,11 @@ async function example() {
         questionsData = await response.json();
         const exampleValue = questionsData[0].project[0].question[0].example;
         exEditor.setValue(exampleValue);
-        console.log(questionsData[0].project[0].question[10].lang)
+        // console.log(questionsData[0].project[0].question[10].lang)
     } catch (error) {
         console.error(error);
     }
 }
-example();
 
 async function player() {
     await fetch('/playerData', {
@@ -130,7 +133,6 @@ async function player() {
     .then(response => response.json())
     .then(data => playerData = data)
 }
-player();
 
 const consoleBtn = document.querySelector('.console');
 const consoleArea = document.querySelector('.console-area');
@@ -221,7 +223,7 @@ langBtns.forEach((btn) => {
         else {
             if(cacheFlag == false)
                 cache = editor.getValue();
-            const value = playerData[0].projects[0].question[0].editor[language];
+            const value = playerData.projects[0].question[0].editor[btn.className];
             editor.setValue(value);
             cacheFlag = true;
         }
