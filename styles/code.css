@@ -154,9 +154,14 @@ nav {
 
 .ques-info {
     font-size: 14px;
-    margin-top: 20px;
+    /* margin-top: 5px; */
     margin-left: 30px;
     white-space: pre-line;
+    line-height: 1.5rem;
+}
+
+.ques-info ul li {
+    margin-left: 1.5rem;
 }
 
 /* .code-preview {
@@ -476,10 +481,6 @@ code {
     line-height: 1rem;
     padding: .125rem;
     white-space: pre-wrap
-}
-
-.ques-info ul li {
-    margin-left: 1.5rem;
 }
 
 /* * {
