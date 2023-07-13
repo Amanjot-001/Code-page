@@ -22,11 +22,13 @@ const submit = document.querySelector('.submit-btn');
 
 exEditor.setReadOnly(true);
 
+let lang = '';
+
 document.addEventListener('DOMContentLoaded', async () => {
     await example();
     await player();
 
-    const lang = questionsData[0].project[0].question[0].lang;
+    lang = questionsData[0].project[0].question[0].lang;
     editor.setValue(playerData.projects[0].question[0].editor[lang]);
 })
 
@@ -52,14 +54,14 @@ async function handleRunBtn() {
     });
 
     let htmlCode = '', cssCode = '', jsCode = '';
-    const language = questionsData[0].project[0].question[0].lang;
-    if(language == 'html') {
+    // const language = questionsData[0].project[0].question[0].lang;
+    if(lang == 'html') {
         htmlCode = editor.getValue();
         console.log(playerData.projects[0].question[0].editor['css'])
         cssCode = playerData.projects[0].question[0].editor['css'];
         jsCode = playerData.projects[0].question[0].editor['js'];
     }
-    else if(language == 'css') {
+    else if(lang == 'css') {
         htmlCode = playerData.projects[0].question[0].editor['html'];
         cssCode = editor.getValue();
         jsCode = playerData.projects[0].question[0].editor['js'];
@@ -77,7 +79,7 @@ async function handleRunBtn() {
         },
         body: JSON.stringify({
             quesNo: questionsData[0].project[0].question[0].quesNumber,
-            lang: questionsData[0].project[0].question[0].lang,
+            lang: lang,
             html: htmlCode,
             css: cssCode,
             js: jsCode,
@@ -199,7 +201,7 @@ async function handleSubmitBtn() {
             },
         body: JSON.stringify({
             code: code,
-            lang: questionsData[0].project[0].question[0].lang,
+            lang: lang,
             quesNo: questionsData[0].project[0].question[0].quesNumber,
         })
     })
@@ -213,9 +215,8 @@ let cacheFlag = false;
 langBtns.forEach((btn) => {
     btn.addEventListener('click', () => {
         // console.log('click')
-        const language = questionsData[0].project[0].question[0].lang;
         // console.log(language)
-        if(btn.className === questionsData[0].project[0].question[0].lang) {
+        if(btn.className === lang) {
             // console.log(cache)
             editor.setValue(cache);
             cacheFlag = false;
