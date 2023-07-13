@@ -32,9 +32,11 @@ const PlayerSchema = new mongoose.Schema({
             {
                 question: [
                     {
-                        editorhtml: String,
-                        editorcss: String,
-                        editorjs: String,
+                        editor: {
+                            html: String,
+                            css: String,
+                            js: String
+                          },
                         submissions: [
                             {
                                 type: String
@@ -48,9 +50,23 @@ const PlayerSchema = new mongoose.Schema({
         ]
 })
 
+
 const Player = mongoose.model('Player', PlayerSchema);
 const newPlayer = new Player({
-    name: 'Aman'
+    name: 'yash',
+    projects: [
+        {
+            question: [
+                {
+                    editor: {
+                        html: "<body>\n\n</body>",
+                        css: "",
+                        js: ""
+                    }
+                }
+            ]
+        }
+    ]
 });
 
 // newPlayer.save();
@@ -113,7 +129,8 @@ const data = new project({
                     solution: '<div class="calculator-card">\n\t<div class="display">\n\t</div>\n\t<div class="buttons">\n\t</div>\n</div>',
                     difficulty: 'Easy',
                     prompt: 'create a div with class as "calculator-card" and two nested divs in it with classes "display" and "buttons" respectively in this order and "0" as default content of display',
-                    preview: false
+                    preview: false,
+                    lang: 'html',
                 },
                 {
                     quesNumber: 2,
@@ -147,7 +164,8 @@ const data = new project({
                     example: '<button> AC </button>',
                     solution: '<div class="buttons">\n\t<button>AC</button>\n\t<button>DEL</button>\n\t<button>%</button>\n\t<button>/</button>\n\t<button>7</button>\n\t<button>8</button>\n\t<button>9</button>\n\t<button>*</button>\n\t<button>4</button>\n\t<button>5</button>\n\t<button>6</button>\n\t<button>-</button>\n\t<button>1</button>\n\t<button>2</button>\n\t<button>3</button>\n\t<button>+</button>\n\t<button>^</button>\n\t<button>0</button>\n\t<button>.</button>\n\t<button>=</button>\n</div>',
                     difficulty: 'Easy',
-                    preview: false
+                    preview: false,
+                    lang: 'html',
                 },
                 {
                     quesNumber: 3,
@@ -166,7 +184,8 @@ const data = new project({
                     difficulty: 'Easy',
                     html: '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Calculator</title><link rel="stylesheet" href="ex.css"></head><body><div class="calculator-card"><div class="display">0</div><div class="buttons"><button>AC</button><button>DEL</button><button>%</button><button>/</button><button>7</button><button>8</button><button>9</button><button>*</button><button>4</button><button>5</button><button>6</button><button>-</button><button>1</button><button>2</button><button>3</button><button>+</button><button>^</button><button>0</button><button>.</button><button>=</button></div></div><script src="ex.js"></script></body></html>',
                     css: '* { margin: 0; padding: 0; box-sizing: border-box; } body { background-color: #000; display: flex; justify-content: center; align-items: center; min-height: 100vh; }',
-                    preview: true
+                    preview: true,
+                    lang: 'css',
                 },
                 {
                     quesNumber: 4,
@@ -193,7 +212,8 @@ const data = new project({
                     difficulty: 'Medium',
                     html: '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Calculator</title><link rel="stylesheet" href="ex.css"></head><body><div class="calculator-card"><div class="display">0</div><div class="buttons"><button>AC</button><button>DEL</button><button>%</button><button>/</button><button>7</button><button>8</button><button>9</button><button>*</button><button>4</button><button>5</button><button>6</button><button>-</button><button>1</button><button>2</button><button>3</button><button>+</button><button>^</button><button>0</button><button>.</button><button>=</button></div></div><script src="ex.js"></script></body></html>',
                     css: '* { margin: 0; padding: 0; box-sizing: border-box; } body { background-color: #000; display: flex; justify-content: center; align-items: center; min-height: 100vh; } .buttons { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-top: 20px; color: white; background-color: #333; padding: 10px; border-radius: 5px; }',
-                    preview: true
+                    preview: true,
+                    lang: 'css',
                 },
                 {
                     quesNumber: 5,
@@ -231,7 +251,8 @@ const data = new project({
                     html: '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Calculator</title><link rel="stylesheet" href="ex.css"></head><body><div class="calculator-card"><div class="display">0</div><div class="buttons"><button>AC</button><button>DEL</button><button>%</button><button>/</button><button>7</button><button>8</button><button>9</button><button>*</button><button>4</button><button>5</button><button>6</button><button>-</button><button>1</button><button>2</button><button>3</button><button>+</button><button>^</button><button>0</button><button>.</button><button>=</button></div></div><script src="ex.js"></script></body></html>',
                     css: '* { margin: 0; padding: 0; box-sizing: border-box; } body { background-color: #000; display: flex; justify-content: center; align-items: center; min-height: 100vh; } .buttons { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-top: 20px; color: white; background-color: #333; padding: 10px; border-radius: 5px; } .display { font-size: 1.2rem; padding: 5px 15px; text-align: end; color: white; } .buttons button { font-size: 0.7rem; padding: 2.5px; background-color: #555; border-radius: 5px; cursor: pointer; } .calculator-card{padding:0.8rem;background-color:#222;border-radius:10px;}',
                     difficulty: 'Easy',
-                    preview: true
+                    preview: true,
+                    lang: 'css',
                 },
                 {
                     quesNumber: 6,
@@ -446,11 +467,34 @@ app.post('/p', async (req, res) => {
 
 app.post('/submit', async (req, res) => {
     let code = req.body.code;
-    const userData = await user.findOne({ name: 'Aman' });
-    userData.projects[0].question[0].submissions.push(code);
-    await userData.save();
-    res.send(userData);
-});
+    let lang = req.body.lang;
+    const number= req.body.quesNo;
+    const PlayerData = await Player.findOne({ name: 'yash' });
+    PlayerData.projects[0].question[number-1].editor[lang] = code;
+    PlayerData.projects[0].question[number-1].submissions.push(code)
+        const newQuestion = {
+            editor: {
+                html: "",
+                css: "",
+                js: ""
+            },
+            submissions: [],
+            like: true,
+            dislike: true
+        }
+        newQuestion.editor['html'] = PlayerData.projects[0].question[number-1].editor['html'];
+        newQuestion.editor['css'] = PlayerData.projects[0].question[number-1].editor['css'];
+        newQuestion.editor['js'] = PlayerData.projects[0].question[number-1].editor['js'];
+        PlayerData.projects[0].question.push(newQuestion);
+    // console.log(PlayerData[3].projects)
+    await PlayerData.save();
+    res.send(PlayerData);
+}); 
+
+app.get('/showData',  async (req,res) => {
+    // await Player.deleteMany({});
+    res.send(await Player.find({}));
+})
 
 app.get('/ex', (req, res) => {
     const filePath = path.join(__dirname, 'ex.html');
@@ -465,6 +509,11 @@ app.get('/calculator', (req, res) => {
 app.post('/exampleData', async (req, res) => {
     const data = await project.find({});
     res.json(data)
+})
+
+app.post('/playerData', async (req, res) => {
+    const data = await Player.find({});
+    res.json(data);
 })
 
 async function check() {

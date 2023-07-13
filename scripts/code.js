@@ -1,4 +1,3 @@
-import { doc } from 'prettier';
 import { addCommentsInHtml, addCommentsInCss, addCommentsInJs } from './project.js'
 
 var editor = ace.edit("editor");
@@ -16,6 +15,7 @@ const questionHeading = document.querySelector('.ques-heading');
 const questionInfo  = document.querySelector('.ques-info');
 
 let questionsData = {};
+let playerData = {};
 const run = document.querySelector('.run-btn');
 const submit = document.querySelector('.submit-btn');
 
@@ -79,11 +79,24 @@ async function example() {
         questionsData = await response.json();
         const exampleValue = questionsData[0].project[0].question[0].example;
         exEditor.setValue(exampleValue);
+        console.log(questionsData[0].project[0].question[10].lang)
     } catch (error) {
         console.error(error);
     }
 }
 example();
+
+async function player() {
+    try {
+        const response = await fetch('/playerData', {
+            method: 'POST'
+        });
+        playerData = await response.json();
+    } catch (error) {
+        console.error(error);
+    }
+}
+player();
 
 const consoleBtn = document.querySelector('.console');
 const consoleArea = document.querySelector('.console-area');
@@ -150,6 +163,8 @@ async function handleSubmitBtn() {
             },
         body: JSON.stringify({
             code: code,
+            lang: questionsData[0].project[0].question[0].lang,
+            quesNo: questionsData[0].project[0].question[0].quesNumber,
         })
     })
 }
@@ -160,13 +175,17 @@ let cache = '';
 
 langBtns.forEach((btn) => {
     btn.addEventListener('click', () => {
-        const lang = questionsData[0].project[0].question[0].lang;
-        if(btn.className == `questionsData[0].project[0].question[0].lang`) {
+        // console.log('click')
+        const language = questionsData[0].project[0].question[10].lang;
+        // console.log(language)
+        if(btn.className === questionsData[0].project[0].question[11].lang) {
+            console.log(cache)
             editor.setValue(cache);
         }
         else {
             cache = editor.getValue();
-            editor.setValue(`PlayerData[0].project[0].questions[0].editor${lang}`);
+            const value = playerData[0].project[0].questions[11].editor[language];
+            editor.setValue(value);
         }
     })
 })
