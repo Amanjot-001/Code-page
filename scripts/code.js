@@ -1,3 +1,4 @@
+
 import { addCommentsInHtml, addCommentsInCss, addCommentsInJs } from './project.js'
 
 var editor = ace.edit("editor");
@@ -13,6 +14,7 @@ editor.setOption('enableLiveAutocompletion', true);
 
 const questionHeading = document.querySelector('.ques-heading');
 const questionInfo  = document.querySelector('.ques-info');
+const iframe = document.querySelector('.result iframe');
 
 let questionsData = {};
 let playerData = {};
@@ -41,7 +43,40 @@ async function handleRunBtn() {
     //  code =  addLine(data, 'a');
     editor.setValue(data);
     });
+    console.log(playerData);
 
+    let htmlCode = '', cssCode = '', jsCode = '';
+    const language = questionsData[0].project[0].question[0].lang;
+    if(language == 'html') {
+        htmlCode = editor.getValue();
+        console.log(playerData.projects[0].question[0].editor['css'])
+        cssCode = playerData.projects[0].question[0].editor['css'];
+        jsCode = playerData.projects[0].question[0].editor['js'];
+    }
+    else if(language == 'css') {
+        htmlCode = playerData.projects[0].question[0].editor['html'];
+        cssCode = editor.getValue();
+        jsCode = playerData.projects[0].question[0].editor['js'];
+    }
+    else {
+        htmlCode = playerData.projects[0].question[0].editor['html'];
+        cssCode = playerData.projects[0].question[0].editor['css'];
+        jsCode = editor.getValue();
+    }
+
+    fetch('/handleRunBtn', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            quesNo: questionsData[0].project[0].question[0].quesNumber,
+            lang: questionsData[0].project[0].question[0].lang,
+            html: htmlCode,
+            css: cssCode,
+            js: jsCode,
+        })
+    })
 
 
 
@@ -68,6 +103,8 @@ async function handleRunBtn() {
         consoleArea.classList.remove('hidden');
         consoleArea.classList.add('visible');
     }
+
+    iframe.contentWindow.location.reload();
 }
 
 
@@ -87,14 +124,11 @@ async function example() {
 example();
 
 async function player() {
-    try {
-        const response = await fetch('/playerData', {
-            method: 'POST'
-        });
-        playerData = await response.json();
-    } catch (error) {
-        console.error(error);
-    }
+    await fetch('/playerData', {
+        method: "POST"
+    })
+    .then(response => response.json())
+    .then(data => playerData = data)
 }
 player();
 
@@ -172,20 +206,24 @@ async function handleSubmitBtn() {
 const langBtns = document.querySelectorAll('.editor-btns span');
 
 let cache = '';
+let cacheFlag = false;
 
 langBtns.forEach((btn) => {
     btn.addEventListener('click', () => {
         // console.log('click')
-        const language = questionsData[0].project[0].question[10].lang;
+        const language = questionsData[0].project[0].question[0].lang;
         // console.log(language)
-        if(btn.className === questionsData[0].project[0].question[11].lang) {
-            console.log(cache)
+        if(btn.className === questionsData[0].project[0].question[0].lang) {
+            // console.log(cache)
             editor.setValue(cache);
+            cacheFlag = false;
         }
         else {
-            cache = editor.getValue();
-            const value = playerData[0].project[0].questions[11].editor[language];
+            if(cacheFlag == false)
+                cache = editor.getValue();
+            const value = playerData[0].projects[0].question[0].editor[language];
             editor.setValue(value);
+            cacheFlag = true;
         }
     })
 })

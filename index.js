@@ -8,6 +8,7 @@ const path = require('path');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const prettier = require("prettier");
+const fs = require('fs');
 
 const configuration = new Configuration({
     apiKey: process.env.API_KEY
@@ -486,10 +487,62 @@ app.post('/submit', async (req, res) => {
         newQuestion.editor['css'] = PlayerData.projects[0].question[number-1].editor['css'];
         newQuestion.editor['js'] = PlayerData.projects[0].question[number-1].editor['js'];
         PlayerData.projects[0].question.push(newQuestion);
-    // console.log(PlayerData[3].projects)
     await PlayerData.save();
     res.send(PlayerData);
-}); 
+});
+
+app.post('/handleRunBtn', async (req, res) => {
+    const quesNo = req.body.quesNo;
+    let html = req.body.html;
+    const css = req.body.css;
+    const js = req.body.js;
+    const lang = req.body.lang;
+
+    html = `<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Project</title>
+        <link rel="stylesheet" href="/styles/calculator.css">
+        <script src="/scripts/calculator.js"></script>
+    </head>` + html + `</html>`;
+
+    writeHtml();
+    writeCss();
+    writeJs();
+
+    function writeHtml () {
+        fs.writeFile('./calculator.html', html, (err) => {
+            if (err) {
+            console.error(err);
+            } else {
+            console.log('File successfully written');
+            }
+        });
+    }
+
+    function writeCss () {
+        fs.writeFile('./styles/calculator.css', css, (err) => {
+            if (err) {
+            console.error(err);
+            } else {
+            console.log('File successfully written');
+            }
+        });
+    }
+
+    function writeJs () {
+        fs.writeFile('./scripts/calculator.js', js, (err) => {
+            if (err) {
+            console.error(err);
+            } else {
+            console.log('File successfully written');
+            }
+        });
+    }
+    res.sendStatus(200);
+})
 
 app.get('/showData',  async (req,res) => {
     // await Player.deleteMany({});
@@ -512,7 +565,7 @@ app.post('/exampleData', async (req, res) => {
 })
 
 app.post('/playerData', async (req, res) => {
-    const data = await Player.find({});
+    const data = await Player.findOne({ name: 'yash'});
     res.json(data);
 })
 
