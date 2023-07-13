@@ -1,3 +1,4 @@
+import { doc } from 'prettier';
 import { addCommentsInHtml, addCommentsInCss, addCommentsInJs } from './project.js'
 
 var editor = ace.edit("editor");
@@ -16,6 +17,7 @@ const questionInfo  = document.querySelector('.ques-info');
 
 let questionsData = {};
 const run = document.querySelector('.run-btn');
+const submit = document.querySelector('.submit-btn');
 
 exEditor.setReadOnly(true);
 
@@ -75,7 +77,7 @@ async function example() {
             method: 'POST'
         });
         questionsData = await response.json();
-        const exampleValue = questionsData[0].project[0].question[4].example;
+        const exampleValue = questionsData[0].project[0].question[0].example;
         exEditor.setValue(exampleValue);
     } catch (error) {
         console.error(error);
@@ -135,3 +137,37 @@ function handlePrevBtn() {
     questionHeading = questionsData[0].project[0].question[questionNumber].heading;
     questionInfo = questionsData[0].project[0].question[questionNumber].info;
 }
+
+submit.addEventListener('click', handleSubmitBtn);
+
+async function handleSubmitBtn() {
+    let code = editor.getValue();
+
+    await fetch('/submit', {
+        method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        body: JSON.stringify({
+            code: code,
+        })
+    })
+}
+
+const langBtns = document.querySelectorAll('.editor-btns span');
+
+let cache = '';
+
+langBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+        const lang = questionsData[0].project[0].question[0].lang;
+        if(btn.className == `questionsData[0].project[0].question[0].lang`) {
+            editor.setValue(cache);
+        }
+        else {
+            cache = editor.getValue();
+            editor.setValue(`PlayerData[0].project[0].questions[0].editor${lang}`);
+        }
+    })
+})
+

@@ -26,6 +26,35 @@ mongoose.connect(process.env.MONGO_PROD_URL)
 
 
 
+const PlayerSchema = new mongoose.Schema({
+    name: String,
+        projects: [
+            {
+                question: [
+                    {
+                        editorhtml: String,
+                        editorcss: String,
+                        editorjs: String,
+                        submissions: [
+                            {
+                                type: String
+                            }
+                            ],
+                        like: Boolean,
+                        dislike: Boolean
+                    }
+                ]
+            }
+        ]
+})
+
+const Player = mongoose.model('Player', PlayerSchema);
+const newPlayer = new Player({
+    name: 'Aman'
+});
+
+// newPlayer.save();
+
 const ProjectSchema = new mongoose.Schema({
     project: [
         {
@@ -44,13 +73,8 @@ const ProjectSchema = new mongoose.Schema({
                     previewHtml: String,
                     previewCss: String,
                     previewJs: String,
-                    prompt: String,
-                    previousHtml: String,
-                    previousCss: String,
-                    previousJs: String,
                     lang: String,
                     selectedClassForHtml: String
-
                 }
             ]
         }
@@ -418,6 +442,14 @@ app.post('/p', async (req, res) => {
     });
     console.log(formattedCode);
     res.json(formattedCode);
+});
+
+app.post('/submit', async (req, res) => {
+    let code = req.body.code;
+    const userData = await user.findOne({ name: 'Aman' });
+    userData.projects[0].question[0].submissions.push(code);
+    await userData.save();
+    res.send(userData);
 });
 
 app.get('/ex', (req, res) => {
