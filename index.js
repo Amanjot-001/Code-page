@@ -633,10 +633,23 @@ async function check(code, info) {
     }
 }
 
+let value = '';
+app.post('/quesValue', (req,res) => {
+    value = req.body.value;
+    res.sendStatus(200);
+})
+
 app.get('/path', async (req, res) => {
     const data = await project.find({});
-    // console.log(data);
+    if(value != ''){
+        res.render('code', { data,value });
+    }
     res.render('code', { data });
+})
+
+app.get('/ques', async (req,res) => {
+    const data = await project.find({});
+    res.render('ques', { data });
 })
 
 app.get('/code', (req, res) => {
