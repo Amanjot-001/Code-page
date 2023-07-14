@@ -633,18 +633,16 @@ async function check(code, info) {
     }
 }
 
-let value = '';
+let value = 0;
 app.post('/quesValue', (req,res) => {
     value = req.body.value;
+    value--;
     res.sendStatus(200);
 })
 
 app.get('/path', async (req, res) => {
     const data = await project.find({});
-    if(value != ''){
-        res.render('code', { data,value });
-    }
-    res.render('code', { data });
+    res.render('code', { data, value: value });
 })
 
 app.get('/ques', async (req,res) => {

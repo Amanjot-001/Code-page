@@ -6,13 +6,14 @@ var exEditor = ace.edit("ex-editor");
 let questionsData = {};
 let playerData = {};
 let lang = '';
+const questionNo = document.querySelector('.ques-no').innerText - 1;
 
 document.addEventListener('DOMContentLoaded', async () => {
     await example();
     await player();
 
-    lang = questionsData[0].project[0].question[0].lang;
-    let playerSubmissionLen = (playerData.projects[0].question[0].submissions).length;
+    lang = questionsData[0].project[0].question[questionNo].lang;
+    let playerSubmissionLen = (playerData.projects[0].question[questionNo].submissions).length;
     let code = '';
 
     var commentFunctions = {
@@ -22,9 +23,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     };      
 
     if(lang == 'html')
-        code = commentFunctions[lang](playerData.projects[0].question[0].editor[lang], questionsData[0].project[0].question[0].selectedClassForHtml, playerSubmissionLen);
+        code = commentFunctions[lang](playerData.projects[0].question[questionNo].editor[lang], questionsData[0].project[0].question[questionNo].selectedClassForHtml, playerSubmissionLen);
     else 
-        code = commentFunctions[lang](playerData.projects[0].question[0].editor[lang], playerSubmissionLen);
+        code = commentFunctions[lang](playerData.projects[0].question[questionNo].editor[lang], playerSubmissionLen);
     prettierReq(code);
 
     await fetch('/clearIframe', {
@@ -60,18 +61,18 @@ async function handleRunBtn() {
         let htmlCode = '', cssCode = '', jsCode = '';
         if(lang == 'html') {
             htmlCode = editor.getValue();
-            console.log(playerData.projects[0].question[0].editor['css'])
-            cssCode = playerData.projects[0].question[0].editor['css'];
-            jsCode = playerData.projects[0].question[0].editor['js'];
+            console.log(playerData.projects[0].question[questionNo].editor['css'])
+            cssCode = playerData.projects[0].question[questionNo].editor['css'];
+            jsCode = playerData.projects[0].question[questionNo].editor['js'];
         }
         else if(lang == 'css') {
-            htmlCode = playerData.projects[0].question[0].editor['html'];
+            htmlCode = playerData.projects[0].question[questionNo].editor['html'];
             cssCode = editor.getValue();
-            jsCode = playerData.projects[0].question[0].editor['js'];
+            jsCode = playerData.projects[0].question[questionNo].editor['js'];
         }
         else {
-            htmlCode = playerData.projects[0].question[0].editor['html'];
-            cssCode = playerData.projects[0].question[0].editor['css'];
+            htmlCode = playerData.projects[0].question[questionNo].editor['html'];
+            cssCode = playerData.projects[0].question[questionNo].editor['css'];
             jsCode = editor.getValue();
         }
     
@@ -81,7 +82,7 @@ async function handleRunBtn() {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                quesNo: questionsData[0].project[0].question[0].quesNumber,
+                quesNo: questionsData[0].project[0].question[questionNo].quesNumber,
                 lang: lang,
                 html: htmlCode,
                 css: cssCode,
@@ -96,9 +97,9 @@ async function handleRunBtn() {
             },
             body: JSON.stringify({  
                 code: code,
-                info: questionsData[0].project[0].question[0].info,
-                solution: questionsData[0].project[0].question[0].solution,
-                prompt: questionsData[0].project[0].question[0].prompt
+                info: questionsData[0].project[0].question[questionNo].info,
+                solution: questionsData[0].project[0].question[questionNo].solution,
+                prompt: questionsData[0].project[0].question[questionNo].prompt
             })
         })
             .then(res => res.json())
@@ -143,7 +144,7 @@ async function example() {
             method: 'POST'
         });
         questionsData = await response.json();
-        const exampleValue = questionsData[0].project[0].question[0].example;
+        const exampleValue = questionsData[0].project[0].question[questionNo].example;
         exEditor.setValue(exampleValue);
         // console.log(questionsData[0].project[0].question[10].lang)
     } catch (error) {
@@ -225,7 +226,7 @@ async function handleSubmitBtn() {
         body: JSON.stringify({
             code: code,
             lang: lang,
-            quesNo: questionsData[0].project[0].question[0].quesNumber,
+            quesNo: questionsData[0].project[0].question[questionNo].quesNumber,
         })
     })
 }
@@ -247,7 +248,7 @@ langBtns.forEach((btn) => {
         else {
             if(cacheFlag == false)
                 cache = editor.getValue();
-            const value = playerData.projects[0].question[0].editor[btn.className];
+            const value = playerData.projects[0].question[questionNo].editor[btn.className];
             editor.setValue(value);
             cacheFlag = true;
         }
