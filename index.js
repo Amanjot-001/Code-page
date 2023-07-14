@@ -477,7 +477,8 @@ app.post('/submit', async (req, res) => {
     const number= req.body.quesNo;
     const PlayerData = await Player.findOne({ name: 'yash' });
     PlayerData.projects[0].question[number-1].editor[lang] = code;
-    PlayerData.projects[0].question[number-1].submissions.push(code)
+    PlayerData.projects[0].question[number-1].submissions.push(code);
+    if(!PlayerData.projects[0].question[number]){
         const newQuestion = {
             editor: {
                 html: "",
@@ -492,6 +493,7 @@ app.post('/submit', async (req, res) => {
         newQuestion.editor['css'] = PlayerData.projects[0].question[number-1].editor['css'];
         newQuestion.editor['js'] = PlayerData.projects[0].question[number-1].editor['js'];
         PlayerData.projects[0].question.push(newQuestion);
+    }
     await PlayerData.save();
     res.sendStatus(200);
 });
@@ -522,7 +524,7 @@ app.post('/handleRunBtn', async (req, res) => {
             if (err) {
             console.error(err);
             } else {
-            console.log('File successfully written');
+            console.log('Html File successfully written');
             }
         });
     }
@@ -532,7 +534,7 @@ app.post('/handleRunBtn', async (req, res) => {
             if (err) {
             console.error(err);
             } else {
-            console.log('File successfully written');
+            console.log('Css File successfully written');
             }
         });
     }
@@ -542,7 +544,7 @@ app.post('/handleRunBtn', async (req, res) => {
             if (err) {
             console.error(err);
             } else {
-            console.log('File successfully written');
+            console.log('Js File successfully written');
             }
         });
     }
