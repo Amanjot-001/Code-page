@@ -60,7 +60,7 @@ const newPlayer = new Player({
             question: [
                 {
                     editor: {
-                        html: "<body>\n\n</body>",
+                        html: "<body>\n\t<!-- write your code here -->\n</body>",
                         css: "",
                         js: ""
                     }
@@ -167,6 +167,7 @@ const data = new project({
                     difficulty: 'Easy',
                     preview: false,
                     lang: 'html',
+                    selectedClassForHtml: 'buttons'
                 },
                 {
                     quesNumber: 3,
