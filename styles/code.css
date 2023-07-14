@@ -299,6 +299,14 @@ iframe {
     gap: 1rem;
 }
 
+.section-2>.header span:first-child span {
+    cursor: pointer;
+}
+
+.section-2>.header span:last-child span {
+    cursor: pointer;
+}
+
 .hidden {
     display: none !important;
 }

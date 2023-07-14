@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         code = commentFunctions[lang](playerData.projects[0].question[0].editor[lang], 'a');
     else 
         code = commentFunctions[lang](playerData.projects[0].question[0].editor[lang]);
-    editor.setValue(code);
+    prettierReq(code);
 })
 
 run.addEventListener('click', handleRunBtn);
@@ -49,19 +49,7 @@ run.addEventListener('click', handleRunBtn);
 async function handleRunBtn() {
     let code = editor.getValue();
     if(code) {
-        await fetch('/p', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                code: code
-            })
-        })
-        .then(response => response.json())
-        .then(data => {
-        editor.setValue(data);
-        });
+        prettierReq(code);
     
         let htmlCode = '', cssCode = '', jsCode = '';
         // const language = questionsData[0].project[0].question[0].lang;
@@ -125,6 +113,22 @@ async function handleRunBtn() {
 
     }
     iframe.contentWindow.location.reload();
+}
+
+async function prettierReq(code) {
+    await fetch('/p', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            code: code
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+    editor.setValue(data);
+    });
 }
 
 
