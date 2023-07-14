@@ -615,7 +615,7 @@ async function check(code, info) {
             Given the problem statement and the submitted code, determine whether the code satisfies the requirements and effectively solves the given problem.
             Please provide feedback on the code, highlighting any issues, missing elements, or areas for improvement. Avoid revealing the solution or mentioning that you are an AI language model.
             Keep the feedback short and direct.
-            If the user code is irrelevant or not valid, please provide the following output: "Oops! Not a valid code."
+            If the user code is irrelevant i.e, not a code and anything else, please provide the following output: "Oops! Not a valid code."
             Problem Statement:
             ${info}
             User Code:

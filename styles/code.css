@@ -318,7 +318,8 @@ iframe {
 .console-area {
     height: 50vh;
     background-color: rgb(26, 26, 26);
-    overflow: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
     flex-direction: column;
     animation: console 500ms ease forwards;
 }
