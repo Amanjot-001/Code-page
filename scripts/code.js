@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     };      
 
     if(lang == 'html')
-        code = commentFunctions[lang](playerData.projects[0].question[0].editor[lang], 'a');
+        code = commentFunctions[lang](playerData.projects[0].question[0].editor[lang], questionsData[0].project[0].question[0].selectedClassForHtml);
     else 
         code = commentFunctions[lang](playerData.projects[0].question[0].editor[lang]);
     prettierReq(code);
