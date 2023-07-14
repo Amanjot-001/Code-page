@@ -2,26 +2,9 @@ import { addCommentsInHtml, addCommentsInCss, addCommentsInJs } from './project.
 
 var editor = ace.edit("editor");
 var exEditor = ace.edit("ex-editor");
-exEditor.setTheme("ace/theme/twilight");
-exEditor.session.setMode("ace/mode/css");
-exEditor.clearSelection();
-editor.setTheme("ace/theme/twilight");
-editor.session.setMode("ace/mode/html");
-
-
-editor.setOption('enableLiveAutocompletion', true);
-
-const questionHeading = document.querySelector('.ques-heading');
-const questionInfo  = document.querySelector('.ques-info');
-const iframe = document.querySelector('.result iframe');
 
 let questionsData = {};
 let playerData = {};
-const run = document.querySelector('.run-btn');
-const submit = document.querySelector('.submit-btn');
-
-exEditor.setReadOnly(true);
-
 let lang = '';
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -49,7 +32,23 @@ document.addEventListener('DOMContentLoaded', async () => {
     })
 
     iframe.contentWindow.location.reload();
+
+    exEditor.session.setMode("ace/mode/" + lang);
+    editor.session.setMode("ace/mode/" + lang);
 })
+
+exEditor.setTheme("ace/theme/twilight");
+exEditor.clearSelection();
+exEditor.setReadOnly(true);
+editor.setTheme("ace/theme/twilight");
+editor.setOption('enableLiveAutocompletion', true);
+
+const questionHeading = document.querySelector('.ques-heading');
+const questionInfo  = document.querySelector('.ques-info');
+const iframe = document.querySelector('.result iframe');
+
+const run = document.querySelector('.run-btn');
+const submit = document.querySelector('.submit-btn');
 
 run.addEventListener('click', handleRunBtn);
 
@@ -59,7 +58,6 @@ async function handleRunBtn() {
         prettierReq(code);
     
         let htmlCode = '', cssCode = '', jsCode = '';
-        // const language = questionsData[0].project[0].question[0].lang;
         if(lang == 'html') {
             htmlCode = editor.getValue();
             console.log(playerData.projects[0].question[0].editor['css'])
@@ -91,35 +89,35 @@ async function handleRunBtn() {
             })
         })
         
-            fetch('/dog', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({  
-                    code: code,
-                    info: questionsData[0].project[0].question[0].info,
-                    solution: questionsData[0].project[0].question[0].solution,
-                    prompt: questionsData[0].project[0].question[0].prompt
-                })
+        fetch('/dog', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({  
+                code: code,
+                info: questionsData[0].project[0].question[0].info,
+                solution: questionsData[0].project[0].question[0].solution,
+                prompt: questionsData[0].project[0].question[0].prompt
             })
-                .then(res => res.json())
-                .then(data => {
-                    const feedback = data.feedback;
-                    const feedbackDiv = document.querySelector('.feedback');
-                    feedbackDiv.textContent = feedback;
-                    console.log('done');
-                })
-                .catch(error => {
-                    const feedbackDiv = document.querySelector('.feedback');
-                    feedbackDiv.textContent = 'Oops! server error';
-                })
+        })
+            .then(res => res.json())
+            .then(data => {
+                const feedback = data.feedback;
+                const feedbackDiv = document.querySelector('.feedback');
+                feedbackDiv.textContent = feedback;
+                console.log('done');
+            })
+            .catch(error => {
+                const feedbackDiv = document.querySelector('.feedback');
+                feedbackDiv.textContent = 'Oops! server error';
+            })
              
-    consoleArea.classList.remove('hidden');
-    consoleArea.classList.add('visible');
+        consoleArea.classList.remove('hidden');
+        consoleArea.classList.add('visible');
 
+        iframe.contentWindow.location.reload();
     }
-    iframe.contentWindow.location.reload();
 }
 
 async function prettierReq(code) {
@@ -138,7 +136,6 @@ async function prettierReq(code) {
     editor.setValue(data);
     });
 }
-
 
 async function example() {
     try {
