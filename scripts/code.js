@@ -128,7 +128,8 @@ async function prettierReq(code) {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            code: code
+            code: code,
+            lang: lang
         })
     })
     .then(response => response.json())

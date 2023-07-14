@@ -458,8 +458,9 @@ app.post('/dog', async (req, res) => {
 
 app.post('/p', async (req, res) => {
     let code = req.body.code;
+    const lang = req.body.lang;
     const formattedCode = await prettier.format(code, {
-        parser: 'html',
+        parser: lang,
         semi: false,
         singleQuote: true,
         trailingComma: 'es5',
