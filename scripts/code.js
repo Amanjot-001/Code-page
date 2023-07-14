@@ -29,6 +29,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     await player();
 
     lang = questionsData[0].project[0].question[0].lang;
+    let playerSubmissionLen = (playerData.projects[0].question[0].submissions).length;
     let code = '';
 
     var commentFunctions = {
@@ -38,9 +39,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     };      
 
     if(lang == 'html')
-        code = commentFunctions[lang](playerData.projects[0].question[0].editor[lang], questionsData[0].project[0].question[0].selectedClassForHtml);
+        code = commentFunctions[lang](playerData.projects[0].question[0].editor[lang], questionsData[0].project[0].question[0].selectedClassForHtml, playerSubmissionLen);
     else 
-        code = commentFunctions[lang](playerData.projects[0].question[0].editor[lang]);
+        code = commentFunctions[lang](playerData.projects[0].question[0].editor[lang], playerSubmissionLen);
     prettierReq(code);
 
     await fetch('/clearIframe', {

@@ -1,6 +1,6 @@
 
-export function addCommentsInHtml(str, Sclass) {
-    if(Sclass) {
+export function addCommentsInHtml(str, Sclass, playerSubmissionLen) {
+    if(Sclass && playerSubmissionLen == 0) {
         str = removeCommentsinHtml(str);
         const tempDiv = document.createElement('div');
         tempDiv.innerHTML = `${str}`;
@@ -16,16 +16,24 @@ export function addCommentsInHtml(str, Sclass) {
         return str;
 }
 
-export function addCommentsInCss(str) {
-    str = removeCommentsInCss(str);
-    str = ` ${str} \n\n/* Write your code here */ \n`;
-    return str;
+export function addCommentsInCss(str, playerSubmissionLen) {
+    if(playerSubmissionLen == 0) {
+        str = removeCommentsInCss(str);
+        str = ` ${str} \n\n/* Write your code here */ \n`;
+        return str;
+    }
+    else 
+        return str;
 }
 
-export function addCommentsInJs(str) {
-    str = removeCommentsInJs(str);
-    str = ` ${str} \n\n/* Write your code here */ \n`;
-    return str;
+export function addCommentsInJs(str, playerSubmissionLen) {
+    if(playerSubmissionLen == 0) {
+        str = removeCommentsInJs(str);
+        str = ` ${str} \n\n/* Write your code here */ \n`;
+        return str;
+    }
+    else
+        return str;
 }
 
 function removeCommentsinHtml(str) {
