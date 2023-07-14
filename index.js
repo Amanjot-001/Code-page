@@ -551,6 +551,34 @@ app.post('/handleRunBtn', async (req, res) => {
     res.sendStatus(200);
 })
 
+app.post('/clearIframe', (req, res) => {
+    fs.writeFile('./calculator.html', '', function(err) {
+        if (err) {
+          console.log('Error erasing file content:', err);
+        } else {
+          console.log('html content erased successfully.');
+        }
+    });
+
+    fs.writeFile('./styles/calculator.css', '', function(err) {
+        if (err) {
+          console.log('Error erasing file content:', err);
+        } else {
+          console.log('css content erased successfully.');
+        }
+    });
+
+    fs.writeFile('./scripts/calculator.js', '', function(err) {
+        if (err) {
+          console.log('Error erasing file content:', err);
+        } else {
+          console.log('js content erased successfully.');
+        }
+    });
+
+    res.sendStatus(200);
+})
+
 app.get('/showData',  async (req,res) => {
     // await Player.deleteMany({});
     res.send(await Player.find({}));

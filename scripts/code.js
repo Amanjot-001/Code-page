@@ -42,6 +42,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     else 
         code = commentFunctions[lang](playerData.projects[0].question[0].editor[lang]);
     prettierReq(code);
+
+    await fetch('/clearIframe', {
+        method: 'POST',
+    })
+
+    iframe.contentWindow.location.reload();
 })
 
 run.addEventListener('click', handleRunBtn);
@@ -70,7 +76,7 @@ async function handleRunBtn() {
             jsCode = editor.getValue();
         }
     
-        fetch('/handleRunBtn', {
+        await fetch('/handleRunBtn', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
