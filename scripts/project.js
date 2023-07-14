@@ -7,8 +7,8 @@ export function addCommentsInHtml(str, Sclass, playerSubmissionLen) {
         // console.log(Sclass)
         // console.log(tempDiv.innerHTML);
         const selectedClass = tempDiv.querySelector(`.${Sclass}`);
-        selectedClass.innerHTML = '\n<!-- Write your code here -->\n';
-    
+        if(selectedClass)
+            selectedClass.innerHTML = '\n<!-- Write your code here -->\n';
         // console.log(tempDiv.innerHTML);
         return `<body>  ${tempDiv.innerHTML} </body>`;
     }

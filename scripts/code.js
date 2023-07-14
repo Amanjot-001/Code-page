@@ -235,6 +235,7 @@ const langBtns = document.querySelectorAll('.editor-btns span');
 
 let cache = '';
 let cacheFlag = false;
+let againClicked = false;
 
 langBtns.forEach((btn) => {
     btn.addEventListener('click', () => {
@@ -242,15 +243,25 @@ langBtns.forEach((btn) => {
         // console.log(language)
         if(btn.className === lang) {
             // console.log(cache)
-            editor.setValue(cache);
+            editor.setReadOnly(false);
+            if(!againClicked)
+                editor.setValue(cache);
             cacheFlag = false;
+            againClicked = true;
         }
         else {
+            editor.setReadOnly(true);
             if(cacheFlag == false)
                 cache = editor.getValue();
             const value = playerData.projects[0].question[questionNo].editor[btn.className];
+            if(btn.className == 'js')
+                editor.session.setMode("ace/mode/javascript");
+            else
+                editor.session.setMode("ace/mode/css");
             editor.setValue(value);
+
             cacheFlag = true;
+            againClicked = false;
         }
     })
 })
