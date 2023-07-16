@@ -637,12 +637,25 @@ let value = 0;
 app.post('/quesValue', (req,res) => {
     value = req.body.value;
     value--;
+    console.log(value)
     res.sendStatus(200);
 })
 
+app.post('/prevBtn', (req, res) => {
+    value = req.body.quesNo - 1;
+    res.redirect('/path');
+})
+
+app.post('/nextBtn', (req, res) => {
+    value = req.body.quesNo + 1;
+    res.redirect('/path');
+})
+
 app.get('/path', async (req, res) => {
+    // const headerValue = req.query.value;
+    console.log(value)
     const data = await project.find({});
-    res.render('code', { data, value: value });
+    res.render('code', { data, value: value});
 })
 
 app.get('/ques', async (req,res) => {

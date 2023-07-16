@@ -47,7 +47,7 @@
                 </div>
                 <div class="middle">
                     <div class="header">
-                        <span class="difficulty">Easy</span>
+                        <span class="difficulty"><%= data[0].project[0].question[value].difficulty %></span>
                         <span class="like"><i class="fa-regular fa-thumbs-up" style="color: #ffffff;"></i> 200</span>
                         <span class="dislike"><i class="fa-regular fa-thumbs-down" style="color: #ffffff;"></i> 5</span>
                         <span class="share"><i class="fa-solid fa-share" style="color: #ffffff;"></i></span>
@@ -79,9 +79,9 @@
                         <span>Problem List</span>
                     </div>
                     <div class="move-btns">
-                        <span onclick="handlePrevBtn()"><i class="fa-solid fa-backward" style="color: #ffffff;"></i>
+                        <span><i class="fa-solid fa-backward" style="color: #ffffff;"></i>
                             PREV</span>
-                        <span onclick="handleNextBtn()">NEXT <i class="fa-solid fa-forward"
+                        <span>NEXT <i class="fa-solid fa-forward"
                                 style="color: #ffffff;"></i></span>
                     </div>
                 </div>

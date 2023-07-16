@@ -150,6 +150,8 @@ async function example() {
     } catch (error) {
         console.error(error);
     }
+
+    // console.log((questionsData[0].project[0].question).length)
 }
 
 async function player() {
@@ -208,9 +210,50 @@ resultBtn.addEventListener('click', () => {
     }
 })
 
+const prevBtn = document.querySelector('.move-btns span:first-child');
+const nextBtn = document.querySelector('.move-btns span:last-child');
+
+prevBtn.addEventListener('click', handlePrevBtn);
+nextBtn.addEventListener('click', handleNextBtn);
+
 function handlePrevBtn() {
-    questionHeading = questionsData[0].project[0].question[questionNumber].heading;
-    questionInfo = questionsData[0].project[0].question[questionNumber].info;
+    if(questionNo > 0){
+        fetch('/prevBtn', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                quesNo: questionNo
+            })      
+        })
+        .then(() => {
+            window.location.href = '/path';
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+    }
+}
+
+function handleNextBtn() {
+    if(questionNo < (questionsData[0].project[0].question).length - 1) {
+        fetch('/nextBtn', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                quesNo: questionNo
+            })      
+        })
+        .then(() => {
+            window.location.href = '/path';
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+    }
 }
 
 submit.addEventListener('click', handleSubmitBtn);
