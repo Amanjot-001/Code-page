@@ -5,7 +5,7 @@
 }
 
 body {
-    background-color: rgb(26, 26, 26);
+    background-color: #000;
     height: 100vh;
     overflow: hidden;
     display: flex;
@@ -27,7 +27,7 @@ a {
 nav {
     /* margin: 5px 5px 10px 5px; */
     /* margin-bottom: 5px; */
-    background-color: rgb(40, 40, 40);
+    background-color: #191919;
     padding: 10px;
     display: flex;
     justify-content: space-between;
@@ -69,7 +69,7 @@ nav {
 
 .section-1 {
     /* margin: 0 0px 20px 20px; */
-    background-color: rgb(40, 40, 40);
+    background-color:  #191919;
     /* grid-column-start: 1; */
     /* grid-row-start: 1; */
     border-radius: 5px;
@@ -212,7 +212,7 @@ iframe {
     padding: 0 20px;
     height: 2.75rem;
     border-top: 1px solid white;
-    background-color: #000;
+    background-color: #191919;
 }
 
 .problem-list span {
@@ -245,7 +245,7 @@ iframe {
 
 .section-2 {
     /* margin: 0 20px 20px 20px; */
-    background-color: rgb(40, 40, 40);
+    background-color:  #191919;
     border-radius: 5px;
     overflow: hidden;
     display: flex;

@@ -1,0 +1,17 @@
+body {
+  background-color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Write your code here */
+.buttons {
+  color: white;
+  background-color: #333;
+  border-radius: 5px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
