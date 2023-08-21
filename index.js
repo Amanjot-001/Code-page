@@ -668,6 +668,15 @@ app.get('/code', (req, res) => {
     res.send('hl');
 })
 
+app.get('/play', (req, res) => {
+    res.render('play');
+})
+
+app.get('/ex-play', (req, res) => {
+    const filePath = path.join(__dirname, 'ex-play.html');
+    res.sendFile(filePath);
+});
+
 app.listen(8080, () => {
     console.log('running');
 });
