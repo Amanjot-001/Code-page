@@ -96,12 +96,13 @@ nav {
 }
 
 .text-editor .header {
-    font-size: 14px;
+    font-size: 1rem;
     color: white;
     display: flex;
     padding: 0.8rem 1rem;
     align-items: center;
     justify-content: space-between;
+    border-bottom: 1px solid #ccc;
 }
 
 .text-editor>.header span {
@@ -115,4 +116,31 @@ nav {
 
 .text-editor>.header span:last-child span {
     cursor: pointer;
+}
+
+.preview {
+    display: flex;
+    flex-direction: column;
+    background-color:  #191919;
+    border-radius: 5px;
+}
+
+iframe {
+    margin: 1rem;
+    flex-grow: 1;
+}
+
+.preview .header {
+    font-size: 1.2rem;
+    color: white;
+    display: flex;
+    padding: 0.7rem 1rem;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #ccc;
+}
+
+.preview-btns {
+    display: flex;
+    gap: 1rem;
 }
