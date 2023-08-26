@@ -96,7 +96,7 @@ nav {
 }
 
 .text-editor .header {
-    font-size: 1rem;
+    font-size: 0.9rem;
     color: white;
     display: flex;
     padding: 0.8rem 1rem;
@@ -131,10 +131,10 @@ iframe {
 }
 
 .preview .header {
-    font-size: 1.2rem;
+    font-size: 0.9rem;
     color: white;
     display: flex;
-    padding: 0.7rem 1rem;
+    padding: 0.8rem 1rem;
     align-items: center;
     justify-content: space-between;
     border-bottom: 1px solid #ccc;
