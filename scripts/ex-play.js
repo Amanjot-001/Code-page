@@ -7,10 +7,5 @@ input.addEventListener("input", (e) => {
 
 function setValue(val) {
   output.value = val;
-  indicator.setAttribute(
-    "style",
-    `
-    --completion: ${val}%
-  `
-  );
+  indicator.setAttribute("style",`--completion: ${val}%`);
 }

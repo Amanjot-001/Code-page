@@ -66,6 +66,8 @@ nav {
 }
 
 .display {
+    display: flex;
+    gap: 1rem;
     width: 80%;
     background-color: #191919;
     padding: 1rem;
@@ -74,6 +76,7 @@ nav {
 
 .display .card {
     width: 33%;
+    height: 35%;
     background-color: #000;
     border-radius: 5px;
     overflow: hidden;
@@ -87,4 +90,4 @@ nav {
 .card .info {
     color: white;
     padding: 0.5rem;
-}]
+}

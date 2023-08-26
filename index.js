@@ -677,6 +677,10 @@ app.get('/ex-play', (req, res) => {
     res.sendFile(filePath);
 });
 
+app.get('/editor', (req, res) => {
+    res.render('editor');
+})
+
 app.listen(8080, () => {
     console.log('running');
 });

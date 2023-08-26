@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editor</title>
+
+    <script src="https://kit.fontawesome.com/040eb06c51.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/styles/editor.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav>
+        <div class="brand">
+            Galaxy
+        </div>
+        <div class="mob-section">
+            <div class="project-list">
+                <a href="">Projects </a>
+            </div>
+            <div class="playground">
+                <a href="">CodePlay <i class="fa-solid fa-code" style="color: #ffffff;"></i></a>
+            </div>
+            <div class="1v1">
+                <a href="">1v1</a>
+            </div>
+            <div class="streak">
+                <a href=""><i class="fa-solid fa-fire" style="color: #ffffff;"></i></a>
+            </div>
+            <div class="user">
+                <a href="">Guest</a>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="text-editor">
+            <div class="header">
+                <span class="editor-btns">
+                    <span class="html">HTML</span>
+                    <span class="css">CSS</span>
+                    <span class="js">JAVASCRIPT</span>
+                </span>
+                <span>
+                    <span class="reload"><i class="fa-solid fa-rotate-right" style="color: #ffffff;"></i></span>
+                    <span class="copy"><i class="fa-regular fa-copy" style="color: #ffffff;"></i></span>
+                    <span class="settings"><i class="fa-solid fa-gear" style="color: #ffffff;"></i></span>
+                </span>
+            </div>
+            <div id="editor"></div>
+        </div>
+        <div class="render"></div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.23.0/ace.js"
+        integrity="sha512-+jESSLfWnLFLB0xrEnlj3yESiiuuuOnVDcq+HXImWWCB5CBqAnVsmtIZ5GtrNMH0C6gPZoj6n14zJ0iwGYoswQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.23.0/ext-language_tools.min.js"
+        integrity="sha512-Thg/+2CD9a62wd9RhUes0dWKbg4Pq90sCXWr5JpKsIiqcW0Km46AbE662jiUI+z441pTYSM8D+/9LOuEscAuIQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="/scripts/editor.js"></script>
+</body>
+</html>
