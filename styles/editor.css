@@ -118,6 +118,12 @@ nav {
     cursor: pointer;
 }
 
+.selected {
+    border-bottom: 2px solid rgba(255, 255, 255, 0.5);
+}
+
+/* section-2 */
+
 .preview {
     display: flex;
     flex-direction: column;
